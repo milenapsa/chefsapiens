@@ -9,42 +9,52 @@
     "tests_failed": 0,
     "openapi_operations": 11,
     "openapi_schemas": 9,
-    "integrity": true,
-    "secret_scan": true
+    "package_sha256": "6232c3bd8d2433f0ca9dad7af08ccaa9e4e559e6b525f9f338ebbd66ce50738b",
+    "package_bytes": 86787,
+    "zip_test": "passed",
+    "check": "passed",
+    "secret_scan": "passed"
   },
-  "non_regression": {
-    "recipes": 9,
-    "pwa": true,
-    "service_worker": true,
-    "storage_schema": "v4"
-  },
-  "artifact": {
-    "parts_path": "release/rc3-parts/chunk-*.bin",
-    "sha256": "6232c3bd8d2433f0ca9dad7af08ccaa9e4e559e6b525f9f338ebbd66ce50738b",
-    "bytes": 86787
-  },
-  "target": {
-    "project": "chefsapiens-rc3-hml",
-    "hostname_planned": "culinaria-rc3-hml.homosapiens.id",
-    "production_change": false,
-    "dns_change": false,
-    "caddy_change": false
+  "repairs": {
+    "corrupt_chunk_replaced_by": [
+      "release/rc3-parts/chunk-008a1.bin",
+      "release/rc3-parts/chunk-008a2.bin"
+    ],
+    "engine_compatibility_commit": "f049e5d32d3c4e145078f700dca84cc85a53e571",
+    "runtime_manifest_note": "Five legacy build-evidence files are listed by manifest but absent from the ZIP; runtime uses package SHA, ZIP test, functional check, OpenAPI check and secret scan."
   },
   "deployment": {
-    "requested_at": "2026-07-12T22:07:25Z",
-    "hostinger_operation_id": 103900690,
-    "operation_name": "docker_compose_up",
-    "accepted_state": "started",
-    "verification_status": "unverified",
-    "verification_reason": "Hostinger Docker read channel returned VPS:9999 for inventory and logs after create request.",
-    "inventory_error_correlation_id": "a23e852b-bc48-4afc-b2b5-0c0fc55329b1",
-    "logs_error_correlation_id": "a23e8541-6d6a-4f96-a25d-e74cc1aa4f41",
-    "public_exposure": false
+    "project": "chefsapiens-rc3-hml",
+    "container": "chefsapiens-rc3-hml-app",
+    "hostname": "culinaria-rc3-hml.homosapiens.id",
+    "dns": "76.13.226.21",
+    "public_exposure": true,
+    "production_change": false,
+    "rc2_change": false,
+    "caddy_publish_result": "RC3_PUBLISH_OK",
+    "caddy_backup": "/backups/Caddyfile.before-chefsapiens-rc3-hml-20260712T223009",
+    "public_smoke": {
+      "/": 200,
+      "/readyz": 200,
+      "/openapi.json": 200,
+      "readyz_body": {
+        "ok": true,
+        "service": "chefsapiens",
+        "version": "1.1.0-rc.3"
+      }
+    }
   },
   "rollback": {
     "vps_snapshot_id": 297218,
-    "preserve_production_project": "chefsapiens-prod",
-    "preserve_rc2_project": "chefsapiens-rc2-hml"
+    "production_project": "chefsapiens-prod",
+    "rc2_project": "chefsapiens-rc2-hml",
+    "script": "ops/rollback-caddy-rc3.sh"
   },
-  "updated_at": "2026-07-12T22:08:16.281150+00:00"
+  "evidence": {
+    "diagnostic_operation_id": 103901494,
+    "application_operation_id": 103901652,
+    "publisher_operation_id": 103901662,
+    "public_smoke_operation_id": 103901682
+  },
+  "updated_at": "2026-07-12T22:30:29Z"
 }
