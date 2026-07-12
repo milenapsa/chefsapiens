@@ -2,48 +2,42 @@
 
 **ChefSapiens — inteligência culinária da HomoSapiens.**
 
-Candidato `1.1.0-rc.2` com aplicação web e API culinária reproduzível.
+## Estado de versões
 
-## Capacidades desta entrega
+- Produção preservada: `1.0`
+- Homologação anterior preservada: `1.1.0-rc.2`
+- Candidata atual: `1.1.0-rc.3`
 
-- interface local existente;
-- API HTTP versionada em `/v1`;
-- ontologia inicial de ingredientes brasileiros e aliases regionais;
-- recomendação explicável por despensa, tempo e equipamentos;
-- redimensionamento de receitas;
-- análise conservadora de alergênicos;
-- importação de receitas a partir de texto;
-- substituições por função culinária;
-- lista de compras com desconto da despensa;
-- OpenAPI em `/openapi.json`;
-- rate limit, limite de corpo, headers defensivos e API key opcional.
+A RC3 foi reconstruída sobre a versão 1.0 para preservar o catálogo de 9 receitas, o PWA, o service worker e a interface consolidada, incorporando a API `/v1`, OpenAPI, ontologia culinária, importador conservador e endpoints de saúde.
 
-## Executar
+## Fonte reproduzível da RC3
 
-```bash
-npm test
-npm run verify
-npm start
+O pacote canônico está dividido em partes binárias em `release/rc3-parts/`. O `Dockerfile.rc3-hml` concatena as partes, verifica SHA-256 e constrói a imagem.
+
+SHA-256 do pacote:
+
+```text
+6232c3bd8d2433f0ca9dad7af08ccaa9e4e559e6b525f9f338ebbd66ce50738b
 ```
 
-O serviço responde por padrão em `http://127.0.0.1:8080`.
+## Verificação
 
-## Autenticação
-
-Defina `CHEFSAPIENS_API_KEYS` com uma lista separada por vírgulas. Se a variável estiver vazia, a API funciona em modo local sem autenticação.
-
-Nunca versionar chaves reais.
-
-## Aviso de segurança alimentar
-
-A detecção de alergênicos é indicativa. O usuário deve conferir rótulos, composição, manipulação e risco de contaminação cruzada.
-
-## Homologação local
+Dentro do pacote extraído:
 
 ```bash
 npm run release:local
 ```
 
-A execução inicia uma instância efêmera em `127.0.0.1`, exige uma chave de teste somente em memória e valida autenticação, contrato OpenAPI, receitas, ontologia, recomendações, importação, escalonamento, cabeçalhos defensivos e encerramento.
+Gate local registrado:
 
-Para o Docker Compose, `CHEFSAPIENS_API_KEYS` deve ser fornecida pelo ambiente. Não registre chaves no repositório.
+- 101 testes aprovados;
+- acessibilidade estática aprovada;
+- escopo culinário aprovado;
+- OpenAPI com 11 operações e 9 schemas;
+- varredura de segredos aprovada;
+- homologação local aprovada;
+- integridade aprovada.
+
+## Governança
+
+Código publicado não significa promoção. A produção 1.0 permanece preservada. A RC3 é destinada à homologação externa isolada e só poderá substituir produção mediante autorização específica, blue-green, smoke público e rollback comprovado.
