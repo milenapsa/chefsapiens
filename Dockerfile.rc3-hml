@@ -3,23 +3,15 @@ FROM node:22-alpine
 RUN apk add --no-cache unzip
 WORKDIR /build
 COPY release/rc3-parts /build/rc3-parts
+COPY api/lib/engine.mjs /build/engine.mjs
 
-RUN cat /build/rc3-parts/chunk-*.bin > /tmp/chefsapiens-1.1.0-rc3-source.zip \
-    && echo "6232c3bd8d2433f0ca9dad7af08ccaa9e4e559e6b525f9f338ebbd66ce50738b  /tmp/chefsapiens-1.1.0-rc3-source.zip" | sha256sum -c - \
-    && unzip -q /tmp/chefsapiens-1.1.0-rc3-source.zip -d /tmp/extracted \
-    && mkdir -p /app \
-    && cp -a /tmp/extracted/chefsapiens-1.1.0-rc3/. /app \
-    && addgroup -S chefsapiens \
-    && adduser -S chefsapiens -G chefsapiens \
-    && chown -R chefsapiens:chefsapiens /app \
-    && rm -rf /build /tmp/chefsapiens-1.1.0-rc3-source.zip /tmp/extracted
+RUN set -eu;     mkdir -p /tmp/parts /tmp/runtime;     while IFS= read -r file; do       test -n "$file" || continue;       cp "/build/rc3-parts/$file" "/tmp/parts/$file";     done < /build/rc3-parts/ORDER;     while IFS= read -r file; do       test -n "$file" || continue;       cat "/tmp/parts/$file";     done < /build/rc3-parts/ORDER > /tmp/chefsapiens-1.1.0-rc3-source.zip;     echo "6232c3bd8d2433f0ca9dad7af08ccaa9e4e559e6b525f9f338ebbd66ce50738b  /tmp/chefsapiens-1.1.0-rc3-source.zip" | sha256sum -c -;     unzip -tq /tmp/chefsapiens-1.1.0-rc3-source.zip;     unzip -q /tmp/chefsapiens-1.1.0-rc3-source.zip -d /tmp/extracted;     cp -a /tmp/extracted/chefsapiens-1.1.0-rc3/. /tmp/runtime/;     cp /build/engine.mjs /tmp/runtime/api/lib/engine.mjs;     cd /tmp/runtime;     node scripts/check.mjs;     node scripts/openapi-check.mjs;     node scripts/secret-scan.mjs;     addgroup -S chefsapiens;     adduser -S chefsapiens -G chefsapiens;     mkdir -p /app;     cp -a . /app/;     chown -R chefsapiens:chefsapiens /app;     rm -rf /build /tmp/parts /tmp/extracted /tmp/runtime /tmp/chefsapiens-1.1.0-rc3-source.zip
 
 WORKDIR /app
 ENV NODE_ENV=production PORT=8080 HOST=0.0.0.0 REQUIRE_API_KEY=true
 USER chefsapiens
 EXPOSE 8080
 
-HEALTHCHECK --interval=15s --timeout=5s --retries=5 --start-period=10s \
-  CMD node -e "fetch('http://127.0.0.1:8080/readyz').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
+HEALTHCHECK --interval=15s --timeout=5s --retries=5 --start-period=10s   CMD node -e "fetch('http://127.0.0.1:8080/readyz').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
 
 CMD ["node", "api/server.mjs"]
