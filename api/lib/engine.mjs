@@ -2,12 +2,16 @@ import { RECIPES } from "../../site/assets/js/catalog.js";
 import {
   recommendRecipes,
   scaleRecipe,
-  buildShoppingList,
-  clampServings
+  buildShoppingList
 } from "../../site/assets/js/domain.js";
 import { detectAllergens, resolveIngredient, normalizeText } from "./ontology.mjs";
 
 const MAX_ARRAY = 200;
+
+function clampServings(value, fallback = 2) {
+  return Math.min(12, Math.max(1, Number(value) || Number(fallback) || 2));
+}
+
 
 function safeArray(value, limit = MAX_ARRAY) {
   return Array.isArray(value) ? value.slice(0, limit) : [];
