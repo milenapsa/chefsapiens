@@ -49,5 +49,22 @@ services:
       retries: 6
       start_period: 5s
 
+  smoke:
+    image: curlimages/curl:8.11.1
+    container_name: chefsapiens-rc2-hml-smoke
+    depends_on:
+      configure:
+        condition: service_healthy
+    restart: "no"
+    command:
+      - /bin/sh
+      - -c
+      - |
+        set -eu
+        curl -fsS --retry 12 --retry-delay 2 https://culinaria-hml.homosapiens.id/readyz | grep -q '"ok":true'
+        curl -fsS https://culinaria-hml.homosapiens.id/openapi.json | grep -q '"1.1.0-rc.2"'
+        curl -fsS https://culinaria-hml.homosapiens.id/ | grep -q 'ChefSapiens'
+        echo HML_PUBLIC_SMOKE_OK
+
 volumes:
   caddy_hml_rc2_backups:
