@@ -4,8 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - "release/rc2-parts/**"
-      - ".github/workflows/materialize-rc2.yml"
+      - "release/rc2-parts/READY"
   workflow_dispatch:
 
 permissions:
@@ -36,7 +35,7 @@ jobs:
         run: |
           set -euo pipefail
           cp -a .tmp/rc2/extracted/chefsapiens-1.1.0-rc2/. .
-          rm -rf .tmp
+          rm -rf .tmp release/rc2-parts
           npm test
           npm run verify
           npm run integrity
