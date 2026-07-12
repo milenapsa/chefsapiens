@@ -1,0 +1,27 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.rc3-hml
+    image: chefsapiens:1.1.0-rc.3-hml
+    container_name: chefsapiens-rc3-hml-app
+    restart: unless-stopped
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop: [ALL]
+    tmpfs:
+      - /tmp
+    environment:
+      PORT: "8080"
+      HOST: "0.0.0.0"
+      REQUIRE_API_KEY: "true"
+      CHEFSAPIENS_API_KEYS: "${CHEFSAPIENS_API_KEYS:?defina CHEFSAPIENS_API_KEYS no ambiente}"
+      RATE_LIMIT_PER_MINUTE: "120"
+      MAX_BODY_BYTES: "1000000"
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:8080/readyz').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
