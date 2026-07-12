@@ -1,0 +1,30 @@
+name: ChefSapiens RC3
+
+on:
+  push:
+    paths:
+      - "Dockerfile.rc3-hml"
+      - "docker-compose.rc3-hml.yml"
+      - "release/rc3-parts/**"
+      - ".github/workflows/rc3.yml"
+  workflow_dispatch:
+
+jobs:
+  rc3-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@9010cd537c4c0793e458acd8b1099b1914b2e9cd # v4
+      - name: Reconstruct RC3
+        run: |
+          cat release/rc3-parts/chunk-*.bin > /tmp/chefsapiens-1.1.0-rc3-source.zip
+          echo "6232c3bd8d2433f0ca9dad7af08ccaa9e4e559e6b525f9f338ebbd66ce50738b  /tmp/chefsapiens-1.1.0-rc3-source.zip" | sha256sum -c -
+          unzip -q /tmp/chefsapiens-1.1.0-rc3-source.zip -d /tmp/rc3
+      - name: Setup Node
+        uses: actions/setup-node1@A1a4442ccf8ecef339982456fd6b7ec7de898b7d # v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: /tmp/rc3/chefsapiens-1.1.0-rc3/package.json
+      - name: Run RC3 gate
+        working-directory: /tmp/rc3/chefsapiens-1.1.0-rc3
+        run: npm run release:local
