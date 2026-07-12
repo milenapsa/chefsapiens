@@ -25,12 +25,26 @@
   },
   "target": {
     "project": "chefsapiens-rc3-hml",
-    "hostname": "culinaria-rc3-hml.homosapiens.id",
-    "production_change": false
+    "hostname_planned": "culinaria-rc3-hml.homosapiens.id",
+    "production_change": false,
+    "dns_change": false,
+    "caddy_change": false
+  },
+  "deployment": {
+    "requested_at": "2026-07-12T22:07:25Z",
+    "hostinger_operation_id": 103900690,
+    "operation_name": "docker_compose_up",
+    "accepted_state": "started",
+    "verification_status": "unverified",
+    "verification_reason": "Hostinger Docker read channel returned VPS:9999 for inventory and logs after create request.",
+    "inventory_error_correlation_id": "a23e852b-bc48-4afc-b2b5-0c0fc55329b1",
+    "logs_error_correlation_id": "a23e8541-6d6a-4f96-a25d-e74cc1aa4f41",
+    "public_exposure": false
   },
   "rollback": {
     "vps_snapshot_id": 297218,
     "preserve_production_project": "chefsapiens-prod",
     "preserve_rc2_project": "chefsapiens-rc2-hml"
-  }
+  },
+  "updated_at": "2026-07-12T22:08:16.281150+00:00"
 }
