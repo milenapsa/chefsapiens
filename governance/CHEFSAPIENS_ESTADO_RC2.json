@@ -1,0 +1,107 @@
+{
+  "schema": "chefsapiens.governance.v1",
+  "generated_at": "2026-07-12T00:00:00-03:00",
+  "product": {
+    "name": "ChefSapiens",
+    "developer": "HomoSapiens",
+    "category": "API de inteligência culinária",
+    "signature": "ChefSapiens — inteligência culinária da HomoSapiens.",
+    "version": "1.1.0-rc.2"
+  },
+  "repository": {
+    "owner": "milenapsa",
+    "name": "chefsapiens",
+    "branch": "main",
+    "visibility": "public",
+    "confirmed_paths": [
+      "README.md",
+      "BRAND.md",
+      "Dockerfile",
+      "docker-compose.yml",
+      "package.json",
+      "api/lib/engine.mjs",
+      "ops/nginx.conf"
+    ],
+    "published_commits": [
+      "96254319b1b96c46d784875d8e03e986988d1bfb",
+      "dda3eb2f928f07573fb51e01fe1858e6d013d166",
+      "5e2a030a400e710abaf4a974a51e4a833abebba0",
+      "6c06ab023f25827a5dbba616e1ca85f0b6a76ec8",
+      "f3ea8588c050ef7c36a2c23910f231ee8617004a"
+    ],
+    "source_publication": {
+      "status": "partial_confirmed",
+      "single_archive_upload": "rejected_without_write",
+      "strategy": "individual_traceable_files"
+    }
+  },
+  "validation": {
+    "local_rc2_tests": {
+      "passed": 73,
+      "failed": 0,
+      "previously_confirmed": true
+    },
+    "openapi": "previously_confirmed",
+    "accessibility": "previously_confirmed",
+    "scope_check": "previously_confirmed",
+    "secret_scan": "previously_confirmed",
+    "integrity": "previously_confirmed",
+    "published_tree_revalidation": "pending"
+  },
+  "infrastructure": {
+    "provider": "Hostinger",
+    "vps_id": 1799286,
+    "ip": "76.13.226.21",
+    "os": "Ubuntu 24.04 LTS",
+    "reverse_proxy": "Caddy",
+    "production_root": "homosapiens.id",
+    "historical_homologation_hostname": "culinaria-hml.homosapiens.id",
+    "docker_inventory_api": "unstable",
+    "production_changed_by_rc2_flow": false
+  },
+  "release": {
+    "authorization": {
+      "source_publish": true,
+      "external_controlled_homologation": true,
+      "replace_production": false,
+      "create_action": false
+    },
+    "current_state": "source_publication_in_progress",
+    "homologation": "not_yet_evidenced",
+    "production": "preserved"
+  },
+  "capabilities": [
+    "web_interface",
+    "versioned_http_api",
+    "recipe_catalog",
+    "ingredient_ontology",
+    "explainable_recommendations",
+    "recipe_scaling",
+    "conservative_allergen_analysis",
+    "text_recipe_import",
+    "culinary_substitutions",
+    "shopping_list_with_pantry_subtraction",
+    "openapi",
+    "rate_limit",
+    "body_limit",
+    "defensive_headers",
+    "optional_local_api_key"
+  ],
+  "mandatory_next_steps": [
+    "finish_source_publication",
+    "inspect_final_repository_tree",
+    "revalidate_tests_on_published_tree",
+    "create_isolated_homologation_project",
+    "configure_non_conflicting_hostname",
+    "validate_tls_caddy_health_openapi_assets",
+    "run_public_smoke_test",
+    "record_rollback_hashes_commits_and_evidence"
+  ],
+  "safety_rules": [
+    "never_commit_real_secrets",
+    "do_not_replace_homosapiens_id_without_specific_authorization",
+    "action_creation_requires_separate_gate",
+    "do_not_claim_execution_without_evidence",
+    "source_publication_is_not_production_publication"
+  ]
+}
