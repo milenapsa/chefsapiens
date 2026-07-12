@@ -1,0 +1,36 @@
+{
+  "schema": "chefsapiens.homologation-state.v1",
+  "version": "1.1.0-rc.3",
+  "base": "1.0",
+  "api_source": "1.1.0-rc.2",
+  "gate": {
+    "status": "green",
+    "tests_passed": 101,
+    "tests_failed": 0,
+    "openapi_operations": 11,
+    "openapi_schemas": 9,
+    "integrity": true,
+    "secret_scan": true
+  },
+  "non_regression": {
+    "recipes": 9,
+    "pwa": true,
+    "service_worker": true,
+    "storage_schema": "v4"
+  },
+  "artifact": {
+    "parts_path": "release/rc3-parts/chunk-*.bin",
+    "sha256": "6232c3bd8d2433f0ca9dad7af08ccaa9e4e559e6b525f9f338ebbd66ce50738b",
+    "bytes": 86787
+  },
+  "target": {
+    "project": "chefsapiens-rc3-hml",
+    "hostname": "culinaria-rc3-hml.homosapiens.id",
+    "production_change": false
+  },
+  "rollback": {
+    "vps_snapshot_id": 297218,
+    "preserve_production_project": "chefsapiens-prod",
+    "preserve_rc2_project": "chefsapiens-rc2-hml"
+  }
+}
