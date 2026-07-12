@@ -42,6 +42,14 @@
         "service": "chefsapiens",
         "version": "1.1.0-rc.3"
       }
+    },
+    "final_smoke": {
+      "operation_id": 103902399,
+      "rc3_root": 200,
+      "rc3_readyz": 200,
+      "rc3_openapi": 200,
+      "production_root": 200,
+      "timestamp": "2026-07-12T22:45:16Z"
     }
   },
   "rollback": {
@@ -56,5 +64,12 @@
     "publisher_operation_id": 103901662,
     "public_smoke_operation_id": 103901682
   },
-  "updated_at": "2026-07-12T22:30:29Z"
+  "updated_at": "2026-07-12T22:45:16Z",
+  "reproducibility": {
+    "chunk_order_file": "release/rc3-parts/ORDER",
+    "dockerfile_commit": "d78c2e814a423ed9f1c96dc74c617455b2fc70b4",
+    "workflow_commit": "49c471681a0556a73da4169399c31f01dba794fb",
+    "remote_git_build_on_hostinger": "unsupported_or_discarded",
+    "supported_vps_path": "verified chunk reconstruction with SHA-256 and runtime gates"
+  }
 }
