@@ -1,75 +1,81 @@
 {
   "schema": "chefsapiens.homologation-state.v1",
   "version": "1.1.0-rc.3",
-  "base": "1.0",
-  "api_source": "1.1.0-rc.2",
-  "gate": {
-    "status": "green",
+  "commercial_release": "v1.2",
+  "status": "green",
+  "environment": {
+    "project": "chefsapiens-rc3-hml",
+    "container": "chefsapiens-rc3-hml-app",
+    "hostname": "culinaria-rc3-hml.homosapiens.id",
+    "production_changed": false,
+    "rc2_changed": false
+  },
+  "technical_gate": {
     "tests_passed": 101,
     "tests_failed": 0,
     "openapi_operations": 11,
     "openapi_schemas": 9,
-    "package_sha256": "6232c3bd8d2433f0ca9dad7af08ccaa9e4e559e6b525f9f338ebbd66ce50738b",
-    "package_bytes": 86787,
-    "zip_test": "passed",
-    "check": "passed",
-    "secret_scan": "passed"
+    "source_sha256": "6232c3bd8d2433f0ca9dad7af08ccaa9e4e559e6b525f9f338ebbd66ce50738b",
+    "source_bytes": 86787,
+    "commercial_bundle_sha256": "b65cd95f24d41522c116c6bd06c690160d2ff0d05de49b52a1859bd4abbc09d9",
+    "commercial_bundle_bytes": 18099,
+    "checks": [
+      "source_sha256",
+      "commercial_sha256",
+      "zip_test",
+      "check",
+      "openapi_check",
+      "secret_scan"
+    ]
   },
-  "repairs": {
-    "corrupt_chunk_replaced_by": [
-      "release/rc3-parts/chunk-008a1.bin",
-      "release/rc3-parts/chunk-008a2.bin"
-    ],
-    "engine_compatibility_commit": "f049e5d32d3c4e145078f700dca84cc85a53e571",
-    "runtime_manifest_note": "Five legacy build-evidence files are listed by manifest but absent from the ZIP; runtime uses package SHA, ZIP test, functional check, OpenAPI check and secret scan."
+  "commercial_surface": {
+    "home": true,
+    "pricing": true,
+    "developer_docs": true,
+    "quickstart": true,
+    "browser_demo_preserved": true,
+    "responsive_layout": true,
+    "lead_brief_local_only": true,
+    "billing_live": false,
+    "api_key_self_service": false,
+    "external_lead_delivery": false,
+    "legal_terms_approved": false,
+    "privacy_policy_approved": false
   },
-  "deployment": {
-    "project": "chefsapiens-rc3-hml",
-    "container": "chefsapiens-rc3-hml-app",
-    "hostname": "culinaria-rc3-hml.homosapiens.id",
-    "dns": "76.13.226.21",
-    "public_exposure": true,
-    "production_change": false,
-    "rc2_change": false,
-    "caddy_publish_result": "RC3_PUBLISH_OK",
-    "caddy_backup": "/backups/Caddyfile.before-chefsapiens-rc3-hml-20260712T223009",
-    "public_smoke": {
-      "/": 200,
-      "/readyz": 200,
-      "/openapi.json": 200,
-      "readyz_body": {
-        "ok": true,
-        "service": "chefsapiens",
-        "version": "1.1.0-rc.3"
-      }
-    },
-    "final_smoke": {
-      "operation_id": 103902399,
-      "rc3_root": 200,
-      "rc3_readyz": 200,
-      "rc3_openapi": 200,
-      "production_root": 200,
-      "timestamp": "2026-07-12T22:45:16Z"
-    }
+  "public_smoke": {
+    "/": 200,
+    "/docs.html": 200,
+    "/pricing.html": 200,
+    "/assets/style.css": 200,
+    "/assets/js/commercial.js": 200,
+    "/readyz": 200,
+    "/openapi.json": 200,
+    "production_root": 200
+  },
+  "evidence": {
+    "commercial_bundle_last_commit": "0a3fa8cfdd835b1489e43b33ec12022fc321cb60",
+    "deployment_operation_id": 103905875,
+    "publisher_operation_id": 103905894,
+    "smoke_operation_id": 103905903,
+    "publisher_result": "RC3_PUBLISH_OK",
+    "caddy_backup": "/backups/Caddyfile.before-chefsapiens-rc3-hml-20260712T235655"
   },
   "rollback": {
     "vps_snapshot_id": 297218,
-    "production_project": "chefsapiens-prod",
-    "rc2_project": "chefsapiens-rc2-hml",
-    "script": "ops/rollback-caddy-rc3.sh"
+    "script": "ops/rollback-caddy-rc3.sh",
+    "previous_caddy_backup": "/backups/Caddyfile.before-chefsapiens-rc3-hml-20260712T223009"
   },
-  "evidence": {
-    "diagnostic_operation_id": 103901494,
-    "application_operation_id": 103901652,
-    "publisher_operation_id": 103901662,
-    "public_smoke_operation_id": 103901682
+  "commercial_readiness": {
+    "homologation": "ready",
+    "sale_activation": "pending",
+    "pending": [
+      "approve final pricing and commercial conditions",
+      "approve terms of use and privacy policy",
+      "implement lead delivery or CRM integration",
+      "implement API key provisioning and lifecycle",
+      "implement billing, quotas and usage metering",
+      "complete visual and commercial human review"
+    ]
   },
-  "updated_at": "2026-07-12T22:45:16Z",
-  "reproducibility": {
-    "chunk_order_file": "release/rc3-parts/ORDER",
-    "dockerfile_commit": "d78c2e814a423ed9f1c96dc74c617455b2fc70b4",
-    "workflow_commit": "49c471681a0556a73da4169399c31f01dba794fb",
-    "remote_git_build_on_hostinger": "unsupported_or_discarded",
-    "supported_vps_path": "verified chunk reconstruction with SHA-256 and runtime gates"
-  }
+  "updated_at": "2026-07-12T23:57:16Z"
 }
