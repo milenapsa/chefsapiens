@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - "release/rc2-parts/READY"
+      - ".github/workflows/materialize-rc2.yml"
   workflow_dispatch:
 
 permissions:
@@ -30,7 +31,7 @@ jobs:
           test -f .tmp/rc2/extracted/chefsapiens-1.1.0-rc2/package.json
           test -f .tmp/rc2/extracted/chefsapiens-1.1.0-rc2/manifest.json
 
-      - name: Materializar árvore no repositório
+      - name: Materializar árvor no repositório
         shell: bash
         run: |
           set -euo pipefail
