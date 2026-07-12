@@ -1,0 +1,21 @@
+FROM node:22-alpine
+
+RUN apk add --no-cache unzip
+WORKDIR /build
+COPY . /build/repo
+RUN mkdir -p /tmp/rc2 /app \
+ && cat /build/repo/release/rc2-parts/chunk-*.bin > /tmp/rc2/source.zip \
+ && echo "3b1e1cc52817010a7f689d67c665532165be1f7c3a7c1deab2c760f4ea271554  /tmp/rc2/source.zip" | sha256sum -c - \
+ && unzip -q /tmp/rc2/source.zip -d /tmp/rc2/extracted \
+ && cp -a /tmp/rc2/extracted/chefsapiens-1.1.0-rc2/. /app \
+ && addgroup -S chefsapiens \
+ && adduser -S chefsapiens -G chefsapiens \
+ && chown -R chefsapiens:chefsapiens /app \
+ && rm -rf /build /tmp/rc2
+
+WORKDIR /app
+ENV NODE_ENV=production PORT=8080 HOST=0.0.0.0 REQUIRE_API_KEY=false
+USER chefsapiens
+EXPOSE 8080
+HEALTHCHECK --interval=15s --timeout=5s --retries=5 --start-period=10s CMD node -e "fetch('http://127.0.0.1:8080/readyz').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
+CMD ["node", "api/server.mjs"]
