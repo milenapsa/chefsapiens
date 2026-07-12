@@ -1,0 +1,17 @@
+{
+  "schema": "chefsapiens.manifest.v1",
+  "files": {
+    "CHEFSAPIENS_INVENTARIO_RC2.md": {
+      "sha256": "fcd26040706530a490fcd0d9657d4cae0f59666bc54a7c7b12a7551076ad1ce1",
+      "bytes": 3594
+    },
+    "CHEFSAPIENS_CANONICO_RC2.md": {
+      "sha256": "c601ea61a85d9c6b1bc720fbbf405360394f12913c19d372c1828620e1007cf4",
+      "bytes": 3547
+    },
+    "CHEFSAPIENS_ESTADO_RC2.json": {
+      "sha256": "ac99f3d024abec9a7d22edbddc9e1b463121a544ac51abb44bd5c6464a66b327",
+      "bytes": 3219
+    }
+  }
+}
