@@ -1,0 +1,22 @@
+{
+  "name": "chefsapiens",
+  "version": "1.1.0-rc.2",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node api/server.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "check": "node scripts/check.mjs",
+    "a11y": "node scripts/accessibility-check.mjs",
+    "verify": "npm test && npm run check && npm run a11y && npm run scope && npm run openapi && npm run secrets",
+    "integrity": "node scripts/integrity-check.mjs",
+    "scope": "node scripts/scope-check.mjs",
+    "secrets": "node scripts/secret-scan.mjs",
+    "openapi": "node scripts/openapi-check.mjs",
+    "homologate:local": "node scripts/homologate-local.mjs",
+    "release:local": "npm run verify && npm run homologate:local && npm run integrity"
+  }
+}
