@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Ative um trial ChefSapiens e faça sua primeira chamada em poucos minutos.">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'">
+<title>Começar trial — ChefSapiens</title>
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/portal-assets/commerce.css">
+</head>
+<body>
+<a class="skip" href="#main">Pular para o conteúdo</a>
+<header class="topbar">
+  <a class="brand" href="/"><span class="mark">CS</span><span><strong>ChefSapiens</strong><small>Ativação comercial</small></span></a>
+  <nav aria-label="Navegação"><a href="/docs.html">Documentação </a><a href="/pricing.html">Planos</a><a href="/dashboard">Área do cliente</a></nav>
+</header>
+<main id="main">
+<section class="hero compact">
+  <div>
+    <p class="eyebrow">TRIAL AUTOGERENCIADO</p>
+    <h1>Da ideia à primeira chamada em poucos minutos.</h1>
+    <p class="lead">Crie uma chave de homologação com 14 dias e 1.000 requisições. A credencial é entregue em uma única vez e permanece somente nesta sessão do navegador.</p>
+  </div>
+  <aside class="trust"><strong>Incluído no trial</strong><ul><li>15 operações documentadas</li><li>Quota e consumo em tempo real</li><li>Área do cliente</li><li>Sem cobrança automática</li></ul></aside>
+</section>
+
+<section class="grid-two">
+  <section class="panel">
+    <div class="panel-head"><div><p class="eyebrow">ETAPA 1</p><h2>Conte sobre o projeto</h2></div><span class="pill">Homologação </span></div>
+    <form id="trial-form">
+      <div class="form-grid">
+        <label>Nome completo<input name="contactName" autocomplete="name" required minlength="2" maxlength="120"></label>
+        <label>E-mail profissional<input name="email" type="email" autocomplete="email" required maxlength="160"></label>
+        <label>Empresa<input name="company" autocomplete="organization" required minlength="2" maxlength="160"></label>
+        <label>Volume estimado
+          <select name="volume" required>
+            <option value="">Selecione</option>
+            <option>Até 20 mil requisições/mês</option>
+            <option>20 mil a 150 mil requisições/mês</option>
+            <option>150 mil a 1 milhão de requisições/mês</option>
+            <option>Acima de 1 milhão de requisições/mês</option>
+          </select>
+        </label>
+        <label class="full">Caso de uso<textarea name="useCase" required minlength="10" maxlength="600" placeholder="Ex.: recomendações de receitas para um aplicativo de supermercado"></textarea></label>
+        <label>Prazo para integração 
+          <select name="timeline" required>
+            <option value="">Selecione</option>
+            <option>Em até 7 dias</option>
+            <option>Em até 30 dias</option>
+            <option>Em até 90 dias</option>
+            <option>Ainda em pesquisa</option>
+          </select>
+        </label>
+      </div>
+      <label class="consent"><input name="consent" type="checkbox" required> Li e aceito os <a href="/terms.html">termos de homologação </a> e a <a href="/privacy.html">política de privacidade</a>.</label>
+      <button class="button primary" id="submit-trial" type="submit">Criar meu trial</button>
+      <p class="status" id="trial-status" aria-live="polite"></p>
+    </form>
+  </section>
+
+  <aside class="panel journey">
+    <p class="eyebrow">JORNADA DE ATIVAÇÃO</p>
+    <ol>
+      <li class="active"><span>1</span><div><strong>Gerar chave</strong><p>Dados mínimos e consentimento.</p></div></li>
+      <li><span>2</span><div><strong>Salvar com segurança</strong><p>A chave aparece uma única vez.</p></div></li>
+      <li><span>3</span><div><strong>Abrir o painel</strong><p>Quota, validade e teste autenticado.</p></div></li>
+      <li><span>4</span><div><strong>Integrar no backend</strong><p>Nunca exponha a chave no frontend.</p></div></li>
+    </ol>
+  </aside>
+</section>
+
+<section class="panel result" id="trial-result" hidden>
+  <div class="panel-head"><div><p class="eyebrow">TRIAL CRIADO</p><h2>Sua chave está pronta</h2></div><span class="pill success">Ativo</span></div>
+  <div class="warning"><strong>Copie agora.</strong> Por segurança, a chave não será exibida novamente depois que esta página for fechada.</div>
+  <label for="issued-key">API key</label>
+  <div class="key-row"><input id="issued-key" type="password" readonly><button class="button secondary" id="toggle-key" type="button">Mostrar</button><button class="button primary" id="copy-key" type="button">Copiar</button></div>
+  <div class="metrics">
+    <article><span>Validade</span><strong id="trial-expiry">—</strong></article>
+    <article><span>Quota</span><strong id="trial-quota">—</strong></article>
+    <article><span>Ambiente</span><strong>Homologação</strong></article>
+  </div>
+  <div class="actions"><a class="button primary" href="/dashboard" id="open-dashboard">Abrir área do cliente</a><a class="button secondary" href="/docs.html">Ver quickstart</a></div>
+</section>
+</main>
+<footer><span>ChefSapiens — inteligência culinária para produtos digitais.</span><a href="/terms.html">Termos</a><a href="/privacy.html">Privacidade</a><a href="/status.html">Status</a></footer>
+<script src="/portal-assets/start.js" defer></script>
+</body>
+</html>
