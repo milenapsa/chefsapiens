@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Painel do cliente ChefSapiens para acompanhar trial, quota e integração.">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'">
+<title>Área do cliente — ChefSapiens</title>
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/portal-assets/dashboard.css">
+</head>
+<body>
+<a class="skip" href="#main">Pular para o conteúdo</a>
+<header class="topbar">
+  <a class="brand" href="/"><span class="mark">CS</span><span><strong>ChefSapiens</strong><small>Área do cliente</small></span></a>
+  <nav aria-label="Navegação"><a href="/">Produto</a><a href="/docs.html">Documentação</a><a href="/pricing.html">Planos</a><a href="/status.html">Status</a></nav>
+</header>
+<main id="main">
+<section class="hero">
+  <div>
+    <p class="eyebrow">PAINEL DE ATIVAÇÃO</p>
+    <h1>Da chave ao primeiro resultado, em poucos minutos.</h1>
+    <p class="lead">Conecte sua chave de trial para visualizar validade, consumo, quota e testar a API sem expor a credencial.</p>
+  </div>
+  <div class="security"><strong>Privacidade da chave</strong><p>A chave fica somente nesta aba e é apagada ao desconectar ou fechar a sessão.</p></div>
+</section>
+
+<section class="panel" id="connect-panel">
+  <div class="panel-head"><div><p class="eyebrow">ETAPA 1</p><h2>Conectar chave</h2></div><span class="pill neutral" id="connection-state">Desconectado</span></div>
+  <form id="connect-form">
+    <label for="api-key">API key</label>
+    <div class="key-row"><input id="api-key" name="apiKey" type="password" autocomplete="off" spellcheck="false" placeholder="cs_trial_…" required><button class="button primary" type="submit">Conectar</button></div>
+    <p class="hint">A credencial não é enviada para serviços externos nem gravada no navegador.</p>
+    <p class="status" id="connect-status" aria-live="polite"></p>
+  </form>
+</section>
+
+<section class="workspace" id="workspace" hidden>
+  <div class="metrics">
+    <article><span>Plano</span><strong id="plan-value">—</strong><small id="environment-value">Homologação</small></article>
+    <article><span>Uso</span><strong><b id="used-value">—</b> / <b id="quota-value">—</b></strong><small id="remaining-value">— restantes</small></article>
+    <article><span>Validade</span><strong id="expiry-value">—</strong><small id="days-value">—</small></article>
+    <article><span>Status</span><strong class="ok" id="account-state">Ativa</strong><small>Autenticação confirmada</small></article>
+  </div>
+
+  <section class="panel">
+    <div class="panel-head"><div><p class="eyebrow">ETAPA 2</p><h2>Teste de integração</h2></div><button class="button secondary" id="refresh-usage" type="button">Atualizar uso</button></div>
+    <p>Faça uma chamada autenticada a <code>GET /v1/recipes</code>. A resposta abaixo é limitada para facilitar a leitura.</p>
+    <div class="actions"><button class="button primary" id="run-test" type="button">Executar teste</button><button class="button ghost" id="copy-curl" type="button">Copiar cURL seguro</button></div>
+    <p class="status" id="test-status" aria-live="polite"></p>
+    <pre id="test-output" tabindex="0"><code>O resultado aparecerá aqui.</code></pre>
+  </section>
+
+  <section class="panel onboarding">
+    <div class="panel-head"><div><p class="eyebrow">ETAPA 3</p><h2>Checklist de lançamento</h2></div><span class="pill" id="progress-pill">1 de 4</span></div>
+    <ol>
+      <li class="done"><span>1</span><div><strong>Chave conectada</strong><p>Autenticação e conta verificadas.</p></div></li>
+      <li id="step-call"><span>2</span><div><strong>Primeira chamada</strong><p>Execute o teste acima ou use o quickstart.</p></div></li>
+      <li><span>3</span><div><strong>Integração no backend</strong><p>Mantenha a chave apenas no servidor e nunca em código público.</p></div></li>
+      <li><span>4</span><div><strong>Validação e plano</strong><p>Teste erros, limites e escolha a faixa de consumo adequada.</p></div></li>
+    </ol>
+  </section>
+
+  <div class="footer-actions"><a class="button secondary" href="/docs.html">Abrir documentação</a><a class="button secondary" href="/pricing.html">Comparar planos</a><button class="button danger" id="disconnect" type="button">Desconectar chave</button></div>
+</section>
+</main>
+<footer><span>ChefSapiens — inteligência culinária para produtos digitais.</span><a href="/terms.html">Termos</a><a href="/privacy.html">Privacidade</a></footer>
+<script src="/portal-assets/dashboard.js" defer></script>
+</body>
+</html>
