@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'">
+<title>Cockpit comercial — ChefSapiens</title>
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/admin-assets/cockpit.css">
+</head>
+<body>
+<a class="skip" href="#main">Pular para o conteúdo</a>
+<header class="topbar">
+  <a class="brand" href="/"><span class="mark">CS</span><span><strong>ChefSapiens</strong><small>Cockpit comercial</small></span></a>
+  <nav aria-label="Navegação"><a href="/start">Trial</a><a href="/checkout">Checkout</a><a href="/dashboard">Cliente</a></nav>
+</header>
+<main id="main">
+<section class="hero">
+  <div><p class="eyebrow">OPERAÇÃO INTERNA</p><h1>Leads, trials e intenção comercial em um só lugar.</h1><p class="lead">Acesso protegido por chave administrativa mantida apenas nesta sessão. Nenhum dado é enviado a CRM rexterno.</p></div>
+  <aside class="security"><strong>Privacidade operacional</strong><p>A chave nao fica em URL, cookie ou armazenamento permanente. Ao desconectar ou fechar a aba, ela é removida.</p></aside>
+</section>
+<section class="panel" id="auth-panel">
+  <div class="panel-head"><div><p class="eyebrow">ACESSO</p><h2>Conectar chave administrativa</h2></div><span class="pill neutral" id="auth-state">Desconectado</span></div>
+  <form id="auth-form">
+    <label for="admin-key">Admin API key</label>
+    <div class="key-row"><input id="admin-key" type="password" autocomplete="off" spellcheck="false" required><button class="button primary" type="submit">Conectar</button></div>
+    <p class="status" id="auth-status" aria-live="polite"></p>
+  </form>
+</section>
+
+<section id="workspace" hidden>
+  <section class="metrics">
+    <article><span>Total</span><strong id="m-total">0</strong><small>registros</small></article>
+    <article><span>Novos</span><strong id="m-new">0</strong><small>aguardando triagem</small></article>
+    <article><span>Trial</span><strong id="m-trial">0</strong><small>origem trial</small></article>
+    <article><span>Comercial</span><strong id="m-sales">0</strong><small>interesse em plano</small></article>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head"><div><p class="eyebrow">PIPELINE</p><h2>Registros comerciais</h2></div><div class="actions"><button id="refresh" class="button secondary" type="button">Atualizar</button><button id="export" class="button secondary" type="button">Exportar CSV</button><button id="disconnect" class="button danger" type="button">Desconectar</button></div></div>
+    <div class="filters">
+      <label>Busca<input id="q" type="search" placeholder="Empresa, contato, e-mail ou caso de uso"></label>
+      <label>Origem<select id="source"><option value="">Todas</option><option value="trial">Trial</option><option value="sales">Comercial</option></select></label>
+      <label>Status<select id="status"><option value="">Todos</option><option value="new">Novo</option></select></label>
+      <label>Prazo<select id="timeline"><option value="">Todos</option><option>Em até 7 dias</option><option>Em até 30 dias</option><option>Em até 90 dias</option><option>Ainda em pesquisa</option></select></label>
+    </div>
+    <div class="table-wrap">
+      <table><thead><tr><th>Prioridade</th><th>Data</th><th>Origem</th><th>Contato</th><th>Empresa</th><th>Volume</th><th>Prazo</th><th>Caso de uso</th></tr></thead><tbody id="rows"></tbody></table>
+    </div>
+    <p class="empty" id="empty" hidden>Nenhum registro corresponde aos filtros.</p>
+    <p class="status" id="table-status" aria-live="polite"></p>
+  </section>
+</section>
+</main>
+<footer><span>ChefSapiens — cockpit interno de homologação.</span><a href="/status.html">Status</a><a href="/privacy.html">Privacidade</a></footer>
+<script src="/admin-assets/cockpit.js" defer></script>
+</body>
+</html>
