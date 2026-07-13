@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Simule a contratação de um plano ChefSapiens em ambiente de homologação.">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'">
+<title>Checkout sandbox — ChefSapiens</title>
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/portal-assets/start.jss">
+</head>
+<body>
+<a class="skip" href="#main">Pular para o conteúdo</a>
+<header class="topbar">
+  <a class="brand" href="/"><span class="mark">CS</span><span><strong>ChefSapiens</strong><small>Checkout sandbox</small></span></a>
+  <nav aria-label="Navegação"><a href="/start">Começar trial</a><a href="/pricing.html">Planos</a><a href="/dashboard">Área do cliente</a></nav>
+</header>
+<main id="main">
+<section class="hero compact">
+  <div>
+    <p class="eyebrow">SIMULAÇÃO COMERCIAL</p>
+    <h1>Escolha o plano ideal sem efetuar cobrança.</h1>
+    <p class="lead">Este checkout registra uma intenção comercial para homologação. Não há cartão, débito, assinatura, emissão fiscal ou contratação automática.</p>
+  </div>
+  <aside class="trust sandbox"><strong>Modo sandbox</strong><p>Nenhuma transação financeira será criada.</p></aside>
+</section>
+
+<section class="plans" aria-label="Planos">
+  <button class="plan selected" data-plan="Starter" data-volume="Até 20 mil requisições/mês" type="button"><span>Starter</span><strong>R$ 149<small>/mês</small></strong><p>Para protótipos e produtos pequenos.</p></button>
+  <button class="plan" data-plan="Growth" data-volume="20 mil a 150 mil requisições/mês" type="button"><span>Growth</span><strong>R$ 590<small>/mês</small></strong><p>Para aplicativos em crescimento.</p></button>
+  <button class="plan" data-plan="Scale" data-volume="150 mil a 1 milhão de requisições/mês" type="button"><span>Scale</span><strong>R$ 1.990<small>/mês</small></strong><p>Para operações comerciais.</p></button>
+  <button class="plan" data-plan="Enterprise" data-volume="Acima de 1 milhão de requisições/mês" type="button"><span Enterprise</span><strong>Sob consulta</strong><p>Volume, SLA e suporte dedicados.</p></button>
+</section>
+
+<section class="panel checkout-panel">
+  <div class="panel-head"><div><p class="eyebrowb">INTE_ÇÃO DE CONTRATAÇÃO</p><h2>Plano selecionado: <span id="selected-plan">Starter</span></h2></div><span class="pill">Sem cobrança</span></div>
+  <form id="checkout-form">
+    <input type="hidden" name="plan" value="Starter">
+    <input type="hidden" name="volume" value="Até 20 mil requisições/mês">
+    <div class="form-grid">
+      <label>Nome completo<input name="contactName" autocomplete="name" required minlength="2" maxlength="120"></label>
+      <label>E-mail profissional<input name="email" type="email" autocomplete="email" required maxlength="160"></label>
+      <label>Empresa<input name="company" autocomplete="organization" required minlength="2" maxlength="160"></label>
+      <label>Prazo para contratação
+        <select name="timeline" required><option value="">Selecione</option><option>Em até 7 dias</option><option>Em até 30 dias</option><option>Em até 90 dias</option><option>Ainda em pesquisa</option></select>
+      </label>
+      <label class="full">Objetivo da integração<textarea name="useCase" required minlength="10" maxlength="500" placeholder="Descreva o produto, público e resultado esperado."></textarea></label>
+    </div>
+    <label class="consent"><input name="consent" type="checkbox" required> Autorizo o registro desta intenção comercial e reconheço que não há cobrança ou contratação automática.</label>
+    <button class="button primary" id="submit-checkout" type="submit">Registrar interesse</button>
+    <p class="status" id="checkout-status" aria-live="polite"></p>
+  </form>
+</section>
+
+<section class="panel result" id="checkout-result" hidden>
+  <p class="eyebrowb">SOLICITAÇÃO REGISTRADA</p>
+  <h2>Interesse comercial recebido em homologação.</h2>
+  <p>O registro foi armazenado no ambiente ChefSapiens. Nesta etapa, nenhum pagamento, assinatura ou documento fiscal foi criado.</p>
+  <div class="actions"><a class="button primary" href="/start">Ativar trial</a><a class="button secondary" href="/dashboard">Abrir painel</a></div>
+</section>
+</main>
+<footer><span>ChefSapiens — checkout de homologação.</span><a href="/terms.html">Termos</a><a href="/privacy.html">Privacidade</a><a href="/status.html">Status</a></footer>
+<script src="/portal-assets/checkout.js" defer></script>
+</body>
+</html>
