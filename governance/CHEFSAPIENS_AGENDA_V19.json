@@ -1,0 +1,58 @@
+{
+  "schema": "chefsapiens.homologation-feature.v1",
+  "feature": "commercial_agenda",
+  "version": "1.9",
+  "status": "green",
+  "environment": {
+    "hostname": "culinaria-rc3-hml.homosapiens.id",
+    "path": "/agenda",
+    "production_changed": false,
+    "rc2_changed": false
+  },
+  "deployment": {
+    "project": "chefsapiens-agenda-hml",
+    "container": "chefsapiens-agenda-hml",
+    "port_internal": 8083,
+    "isolated": true,
+    "secrets_embedded": false
+  },
+  "features": [
+    "overdue_actions",
+    "today_actions",
+    "next_7_days",
+    "unscheduled_opportunities",
+    "owner_filter",
+    "stage_filter",
+    "search",
+    "csv_export",
+    "reschedule_tomorrow",
+    "reschedule_plus_7_days",
+    "clear_schedule"
+  ],
+  "security": {
+    "admin_key_storage": "sessionStorage_only",
+    "external_crm": false,
+    "automatic_email": false,
+    "automatic_whatsapp": false,
+    "billing_live": false
+  },
+  "artifacts": {
+    "commit": "7341baa1a50a14406e9b58ae81c23bab227e2e7d",
+    "agenda_html_sha256": "0754d7365efb4f57d72b29d162c62cb22960ca6cd2f58129a229f18954a1cd5d",
+    "agenda_css_sha256": "7d384378a2341478a83827461fcc16a51d0705538c72da582a142a70af1357b8",
+    "agenda_js_sha256": "21cb21c71953c117fb6f672576e8cc340eebb840c49e8b5d7c2184b0207c5df6"
+  },
+  "evidence": {
+    "deploy_operation_id": 104040878,
+    "publish_operation_id": 104040908,
+    "smoke_operation_id": 104040926,
+    "publish_result": "AGENDA_V19_PUBLISH_OK",
+    "smoke_result": "AGENDA_V19_SMOKE_OK",
+    "caddy_backup": "/backups/Caddyfile.before-chefsapiens-agenda-v19-20260713T174523",
+    "agenda_http": 200,
+    "admin_guard_http": 401,
+    "reschedule_http": 200,
+    "production_http": 200
+  },
+  "updated_at": "2026-07-13T17:45:47Z"
+}
