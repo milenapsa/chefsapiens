@@ -1,81 +1,91 @@
 {
   "schema": "chefsapiens.homologation-state.v1",
-  "version": "1.1.0-rc.3",
-  "commercial_release": "v1.2",
+  "version": "1.2.0-rc.1",
   "status": "green",
   "environment": {
     "project": "chefsapiens-rc3-hml",
-    "container": "chefsapiens-rc3-hml-app",
     "hostname": "culinaria-rc3-hml.homosapiens.id",
     "production_changed": false,
-    "rc2_changed": false
+    "rc2_changed": false,
+    "persistent_volume": "chefsapiens-rc3-hml_chefsapiens_rc3_data"
   },
-  "technical_gate": {
-    "tests_passed": 101,
+  "artifacts": {
+    "source": {
+      "bytes": 86787,
+      "sha256": "6232c3bd8d2433f0ca9dad7af08ccaa9e4e559e6b525f9f338ebbd66ce50738b"
+    },
+    "site": {
+      "bytes": 32876,
+      "sha256": "d5fdd5aecf2ae875c0e9dffa16359a03e79d49ad02d87c1f7c5371c3c55d85c3"
+    },
+    "backend": {
+      "bytes": 15272,
+      "sha256": "72301dc0c232f72e9456d31b02c929ca75d7e5f573480b83fa43f39787605c07"
+    },
+    "manifest_commit": "94f836147b9fa2d130243176c0871e703a797837"
+  },
+  "gate": {
+    "tests_passed": 107,
     "tests_failed": 0,
-    "openapi_operations": 11,
-    "openapi_schemas": 9,
-    "source_sha256": "6232c3bd8d2433f0ca9dad7af08ccaa9e4e559e6b525f9f338ebbd66ce50738b",
-    "source_bytes": 86787,
-    "commercial_bundle_sha256": "b65cd95f24d41522c116c6bd06c690160d2ff0d05de49b52a1859bd4abbc09d9",
-    "commercial_bundle_bytes": 18099,
-    "checks": [
-      "source_sha256",
-      "commercial_sha256",
-      "zip_test",
-      "check",
-      "openapi_check",
-      "secret_scan"
+    "openapi_operations": 15,
+    "openapi_schemas": 15,
+    "secret_scan": "passed",
+    "visual_review": [
+      "desktop",
+      "mobile"
     ]
   },
-  "commercial_surface": {
-    "home": true,
-    "pricing": true,
-    "developer_docs": true,
-    "quickstart": true,
-    "browser_demo_preserved": true,
-    "responsive_layout": true,
-    "lead_brief_local_only": true,
-    "billing_live": false,
-    "api_key_self_service": false,
-    "external_lead_delivery": false,
-    "legal_terms_approved": false,
-    "privacy_policy_approved": false
+  "commercial": {
+    "lead_capture": true,
+    "trial_provisioning": true,
+    "trial_days": 14,
+    "trial_quota": 1000,
+    "usage_metering": true,
+    "admin_lead_export": true,
+    "terms_page": true,
+    "privacy_page": true,
+    "status_page": true,
+    "billing": false,
+    "crm_delivery": false,
+    "legal_approval": "pending_human_review"
   },
   "public_smoke": {
-    "/": 200,
-    "/docs.html": 200,
-    "/pricing.html": 200,
-    "/assets/style.css": 200,
-    "/assets/js/commercial.js": 200,
-    "/readyz": 200,
-    "/openapi.json": 200,
-    "production_root": 200
+    "pages": {
+      "/": 200,
+      "/pricing.html": 200,
+      "/docs.html": 200,
+      "/terms.html": 200,
+      "/privacy.html": 200,
+      "/status.html": 200,
+      "/readyz": 200,
+      "/openapi.json": 200
+    },
+    "auth_guard": 401,
+    "trial_issue": 201,
+    "quota_used": 1,
+    "quota_remaining": 999,
+    "lead_submit": 202,
+    "admin_guard": 401,
+    "admin_list": 200,
+    "production_root": 200,
+    "result": "COMMERCIAL_RC1_SMOKE_OK"
+  },
+  "persistence": {
+    "restart_operation_id": 103913719,
+    "result": "PERSISTENCE_OK",
+    "records_after_restart": 2
   },
   "evidence": {
-    "commercial_bundle_last_commit": "0a3fa8cfdd835b1489e43b33ec12022fc321cb60",
-    "deployment_operation_id": 103905875,
-    "publisher_operation_id": 103905894,
-    "smoke_operation_id": 103905903,
+    "deploy_operation_id": 103913698,
+    "publisher_operation_id": 103913707,
+    "smoke_operation_id": 103913712,
+    "persistence_smoke_operation_id": 103913730,
     "publisher_result": "RC3_PUBLISH_OK",
-    "caddy_backup": "/backups/Caddyfile.before-chefsapiens-rc3-hml-20260712T235655"
+    "caddy_backup": "/backups/Caddyfile.before-chefsapiens-rc3-hml-20260713T021717"
   },
   "rollback": {
     "vps_snapshot_id": 297218,
-    "script": "ops/rollback-caddy-rc3.sh",
-    "previous_caddy_backup": "/backups/Caddyfile.before-chefsapiens-rc3-hml-20260712T223009"
+    "script": "ops/rollback-caddy-rc3.sh"
   },
-  "commercial_readiness": {
-    "homologation": "ready",
-    "sale_activation": "pending",
-    "pending": [
-      "approve final pricing and commercial conditions",
-      "approve terms of use and privacy policy",
-      "implement lead delivery or CRM integration",
-      "implement API key provisioning and lifecycle",
-      "implement billing, quotas and usage metering",
-      "complete visual and commercial human review"
-    ]
-  },
-  "updated_at": "2026-07-12T23:57:16Z"
+  "updated_at": "2026-07-13T02:18:02Z"
 }
