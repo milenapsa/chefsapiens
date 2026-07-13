@@ -6,34 +6,7 @@
     "project": "chefsapiens-rc3-hml",
     "hostname": "culinaria-rc3-hml.homosapiens.id",
     "production_changed": false,
-    "rc2_changed": false,
-    "persistent_volume": "chefsapiens-rc3-hml_chefsapiens_rc3_data"
-  },
-  "artifacts": {
-    "source": {
-      "bytes": 86787,
-      "sha256": "6232c3bd8d2433f0ca9dad7af08ccaa9e4e559e6b525f9f338ebbd66ce50738b"
-    },
-    "site": {
-      "bytes": 32876,
-      "sha256": "d5fdd5aecf2ae875c0e9dffa16359a03e79d49ad02d87c1f7c5371c3c55d85c3"
-    },
-    "backend": {
-      "bytes": 15272,
-      "sha256": "72301dc0c232f72e9456d31b02c929ca75d7e5f573480b83fa43f39787605c07"
-    },
-    "manifest_commit": "94f836147b9fa2d130243176c0871e703a797837"
-  },
-  "gate": {
-    "tests_passed": 107,
-    "tests_failed": 0,
-    "openapi_operations": 15,
-    "openapi_schemas": 15,
-    "secret_scan": "passed",
-    "visual_review": [
-      "desktop",
-      "mobile"
-    ]
+    "rc2_changed": false
   },
   "commercial": {
     "lead_capture": true,
@@ -42,50 +15,54 @@
     "trial_quota": 1000,
     "usage_metering": true,
     "admin_lead_export": true,
-    "terms_page": true,
-    "privacy_page": true,
-    "status_page": true,
     "billing": false,
     "crm_delivery": false,
     "legal_approval": "pending_human_review"
   },
-  "public_smoke": {
-    "pages": {
-      "/": 200,
-      "/pricing.html": 200,
-      "/docs.html": 200,
-      "/terms.html": 200,
-      "/privacy.html": 200,
-      "/status.html": 200,
-      "/readyz": 200,
-      "/openapi.json": 200
-    },
-    "auth_guard": 401,
-    "trial_issue": 201,
-    "quota_used": 1,
-    "quota_remaining": 999,
-    "lead_submit": 202,
-    "admin_guard": 401,
-    "admin_list": 200,
-    "production_root": 200,
-    "result": "COMMERCIAL_RC1_SMOKE_OK"
+  "customer_portal": {
+    "status": "green",
+    "version": "1.4",
+    "path": "/dashboard",
+    "project": "chefsapiens-portal-hml",
+    "container": "chefsapiens-portal-hml",
+    "isolated": true,
+    "api_key_storage": "sessionStorage_only",
+    "features": [
+      "secure_key_connection",
+      "quota_and_usage",
+      "trial_expiry",
+      "authenticated_api_test",
+      "safe_curl_example",
+      "onboarding_checklist"
+    ],
+    "artifacts": {
+      "dashboard_html_sha256": "4fe5d7de758c729e355aec05aab53fa7f267faa9d39dd0050591c6c36c598114",
+      "dashboard_css_sha256": "1d5e951a6a22c3aa0a47e2c98a06afaa9728cb09d32a0c7811bdd08af4e8bf2e",
+      "dashboard_js_sha256": "1062b999d322827c2d4b3aef1f7adcb46fa023bca568156f57c3df82a35f1775",
+      "last_commit": "dcabcce49a5369ab4dff1e6276eb5d4ac709d1bf"
+    }
   },
-  "persistence": {
-    "restart_operation_id": 103913719,
-    "result": "PERSISTENCE_OK",
-    "records_after_restart": 2
+  "public_smoke": {
+    "/dashboard": 200,
+    "/dashboard.html": 200,
+    "/portal-assets/dashboard.css": 200,
+    "/portal-assets/dashboard.js": 200,
+    "/readyz": 200,
+    "/openapi.json": 200,
+    "auth_guard": 401,
+    "production_root": 200,
+    "result": "PORTAL_SMOKE_OK"
   },
   "evidence": {
-    "deploy_operation_id": 103913698,
-    "publisher_operation_id": 103913707,
-    "smoke_operation_id": 103913712,
-    "persistence_smoke_operation_id": 103913730,
-    "publisher_result": "RC3_PUBLISH_OK",
-    "caddy_backup": "/backups/Caddyfile.before-chefsapiens-rc3-hml-20260713T021717"
+    "portal_deploy_operation_id": 104032010,
+    "portal_publish_operation_id": 104032130,
+    "portal_smoke_operation_id": 104032170,
+    "publisher_result": "PORTAL_PUBLISH_OK",
+    "caddy_backup": "/backups/Caddyfile.before-chefsapiens-portal-20260713T154114"
   },
   "rollback": {
     "vps_snapshot_id": 297218,
-    "script": "ops/rollback-caddy-rc3.sh"
+    "caddy_backup": "/backups/Caddyfile.before-chefsapiens-portal-20260713T154114"
   },
-  "updated_at": "2026-07-13T02:18:02Z"
+  "updated_at": "2026-07-13T15:41:38Z"
 }
