@@ -1,0 +1,91 @@
+{
+  "schema": "chefsapiens.continuous-governance.v1",
+  "generated_at": "2026-07-13T21:23:15Z",
+  "environment": "homologation",
+  "production_changed": false,
+  "canonical_inventory": {
+    "path": "governance/CHEFSAPIENS_INVENTARIO_CANONICO_2026-07-13.json",
+    "commit": "7d875bddcbb9f54230754457869412ee972ec28c",
+    "sha256": "1b7e9337f6e97d33824c468d638d2da145b913ea17ea9fb2de244df0ceb4d8cf",
+    "immutable_snapshot": true
+  },
+  "schema_validation": {
+    "path": "governance/CHEFSAPIENS_INVENTARIO_SCHEMA_V1.json",
+    "commit": "2915e1b0ca4070707fe7c0cf19718bd7851dd157",
+    "blob_sha": "e141c817faa78ba71c05623147fc2b845f39863b",
+    "validator": "jsonschema Draft 2020-12",
+    "result": "CANONICAL_SCHEMA_VALIDATION_OK",
+    "operation_id": 104051296,
+    "versions": {
+      "core": "1.2.0-rc.1",
+      "portal": "1.5",
+      "admin": "1.8",
+      "agenda": "1.9"
+    }
+  },
+  "drift_monitor": {
+    "script_path": "governance/monitor/chefsapiens-drift-monitor.sh",
+    "commit": "8a63fc9c2282455bcc340644c72e58e78366eacd",
+    "sha256": "0d4832e8485d68ae4e0906c7aa77abd9f2db5ad95de23ca705ac983c83d4e9d1",
+    "project": "chefsapiens-inventory-monitor",
+    "container": "chefsapiens-inventory-monitor",
+    "interval_seconds": 900,
+    "public_route": false,
+    "docker_socket": "read_only",
+    "protected_admin_data_accessed": false,
+    "secrets_in_reports": false,
+    "volume": "chefsapiens-inventory-monitor_chefsapiens_drift_data",
+    "latest_report": "/data/latest.json",
+    "history_directory": "/data/history",
+    "backup": "/backups/CHEFSAPIENS_DRIFT_LATEST.json",
+    "backup_pointer": "/backups/LAST_CHEFSAPIENS_DRIFT_REPORT",
+    "deploy_operation_id": 104051240
+  },
+  "latest_check": {
+    "generated_at": "2026-07-13T21:20:53Z",
+    "status": "green",
+    "drift_count": 0,
+    "canonical_integrity_ok": true,
+    "endpoints": {
+      "homologation_root": 200,
+      "readyz": 200,
+      "start": 200,
+      "checkout": 200,
+      "dashboard": 200,
+      "cockpit": 200,
+      "agenda": 200,
+      "admin_guard_without_key": 401,
+      "production_root": 200
+    },
+    "containers": {
+      "core": "running|healthy|0",
+      "portal": "running|healthy|0",
+      "admin": "running|healthy|0",
+      "agenda": "running|healthy|0",
+      "production": "running|healthy|0"
+    },
+    "persistence_result": "DRIFT_REPORT_PERSISTENCE_OK",
+    "persistence_check_operation_id": 104051261
+  },
+  "gates": {
+    "production_promotion_authorized": false,
+    "billing_live": false,
+    "crm_delivery_live": false,
+    "automatic_email_live": false,
+    "automatic_whatsapp_live": false
+  },
+  "incidents": [
+    {
+      "scope": "schema_check_v1",
+      "issue": "validator produced no operational completion output",
+      "resolution": "replaced with deterministic Python jsonschema validator",
+      "final_status": "resolved"
+    },
+    {
+      "scope": "schema_check_v2_first_attempt",
+      "issue": "folded heredoc caused shell syntax error",
+      "resolution": "replaced with base64-decoded Python script and reran",
+      "final_status": "resolved"
+    }
+  ]
+}
