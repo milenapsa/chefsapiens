@@ -53,14 +53,19 @@
     "dashboard_api": 200,
     "checkout_intent": 202,
     "production_root": 200,
-    "result": "ADMIN_V16_SMOKE_OK",
+    "result": "ADMIN_V18_PERSISTENCE_OK",
     "/cockpit": 200,
     "/cockpit.html": 200,
     "/admin-assets/cockpit.css": 200,
     "/admin-assets/cockpit.js": 200,
     "admin_guard": 401,
     "admin_data": 200,
-    "admin_records": 4
+    "admin_records": 4,
+    "/admin-assets/cockpit-v18.css": 200,
+    "/admin-assets/cockpit-v18.js": 200,
+    "admin_pipeline_data": 200,
+    "admin_pipeline_stage": "proposal",
+    "admin_pipeline_persistence": "passed"
   },
   "evidence": {
     "artifact_check_operation_id": 104034698,
@@ -73,35 +78,50 @@
     "admin_publish_operation_id": 104035696,
     "admin_smoke_operation_id": 104035723,
     "admin_publisher_result": "ADMIN_V16_PUBLISH_OK",
-    "admin_caddy_backup": "/backups/Caddyfile.before-chefsapiens-admin-v16-20260713T162243"
+    "admin_caddy_backup": "/backups/Caddyfile.before-chefsapiens-admin-v16-20260713T162243",
+    "admin_v18_artifact_check_operation_id": 104039821,
+    "admin_v18_deploy_operation_id": 104039840,
+    "admin_v18_republish_operation_id": 104039868,
+    "admin_v18_final_smoke_operation_id": 104039973,
+    "admin_v18_restart_operation_id": 104039983,
+    "admin_v18_persistence_smoke_operation_id": 104039998,
+    "admin_v18_publisher_result": "ADMIN_PIPELINE_PUBLISH_OK",
+    "admin_v18_caddy_backup": "/backups/Caddyfile.before-chefsapiens-admin-pipeline-20260713T172518"
   },
   "rollback": {
     "vps_snapshot_id": 297218,
-    "caddy_backup": "/backups/Caddyfile.before-chefsapiens-admin-v16-20260713T162243"
+    "caddy_backup": "/backups/Caddyfile.before-chefsapiens-admin-pipeline-20260713T172518"
   },
-  "updated_at": "2026-07-13T16:23:08Z",
+  "updated_at": "2026-07-13T17:27:30Z",
   "admin_cockpit": {
     "status": "green",
-    "version": "1.6",
+    "version": "1.8",
     "path": "/cockpit",
     "project": "chefsapiens-admin-hml",
     "container": "chefsapiens-admin-hml",
     "isolated": true,
     "admin_key_storage": "sessionStorage_only",
+    "pipeline_persistent": true,
+    "pipeline_volume": "chefsapiens-admin-hml_chefsapiens_admin_data",
     "features": [
       "lead_metrics",
       "search_and_filters",
       "priority_scoring",
-      "trial_and_sales_sources",
+      "stage_editing",
+      "owner_assignment",
+      "next_action",
+      "next_action_date",
+      "internal_notes",
+      "overdue_filter",
       "csv_export",
       "no_external_crm"
     ],
     "records_verified": 4,
-    "artifacts_commit": "b95f270eb05e852d9fb19df718e854760e96b7e4",
+    "artifacts_commit": "828421ea1447b5a65e690641350af397417c950c",
     "artifacts": {
-      "cockpit_html_sha256": "79a5df488d30d8d7b0725fad39a65f5fbd9f8b7556ebb6fd21de1359160aafcc",
-      "cockpit_css_sha256": "2e12f666402ab30b63fa7757ab316a8e3b0d3f8c3d410e11d803a2446fc4a0ff",
-      "cockpit_js_sha256": "2e644a63234ceb4a630912d5f5fdc2e81dcb421231caee6d896f3b06b60daec1"
+      "cockpit_html_sha256": "bfa03c0ac67b2718c031241ebf7937560b5cd808c51b26121588bfb5d5d7514e",
+      "cockpit_css_sha256": "260f97ddfe2c3a0f48f70fe2b488975e96f3bea249da93fa11a448c8c4b6cfe8",
+      "cockpit_js_sha256": "dce63e30502fcd76ee695284b29316b972259b7254df92ea02f2efce27d1051b"
     }
   }
 }
