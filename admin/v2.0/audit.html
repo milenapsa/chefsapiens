@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'">
+<title>Auditoria comercial — ChefSapiens</title>
+<link rel="stylesheet" href="/audit-assets/audit.css">
+</head>
+<body>
+<a class="skip" href="#main">Pular para o conteúdo</a>
+<header class="topbar">
+  <a class="brand" href="/"><span class="mark">CS</span><span><strong>ChefSapiens</strong><small>Auditoria comercial</small></span></a>
+  <nav><a href="/cockpit">Cockpit</a><a href="/agenda">Agenda</a><a href="/dashboard">Cliente</a></nav>
+</header>
+<main id="main">
+<section class="hero">
+  <div><p class="eyebrow">OPERAÇÃO INTERNA • V2.0</p><h1>Histórico verificável das mudanças do pipeline.</h1><p class="lead">Cada atualização registra data, lead, ação e campos alterados. A chave administrativa fica somente nesta sessão.</p></div>
+  <aside><strong>Leitura protegida</strong><p>O histórico não contém a chave administrativa e não é enviado a serviços externos.</p></aside>
+</section>
+<section class="panel" id="auth-panel">
+  <div class="panel-head"><div><p class="eyebrow">ACESSO</p><h2>Conectar chave administrativa</h2></div><span class="pill neutral" id="auth-state">Desconectado</span></div>
+  <form id="auth-form"><label for="admin-key">Admin API key</label><div class="key-row"><input id="admin-key" type="password" autocomplete="off" spellcheck="false" required><button class="button primary" type="submit">Conectar</button></div><p class="status" id="auth-status" aria-live="polite"></p></form>
+</section>
+<section id="workspace" hidden>
+  <section class="metrics">
+    <article><span>Eventos carregados</span><strong id="m-total">0</strong><small>últimos registros</small></article>
+    <article><span>Leads alterados</span><strong id="m-leads">0</strong><small>IDs distintos</small></article>
+    <article><span>Últimas 24h</span><strong id="m-day">0</strong><small>mudanças recentes</small></article>
+    <article><span>Campos alterados</span><strong id="m-fields">0</strong><small>total no recorte</small></article>
+  </section>
+  <section class="panel">
+    <div class="panel-head"><div><p class="eyebrow">TRILHA DE AUDITORIA</p><h2>Eventos do pipeline</h2></div><div class="actions"><button id="refresh" class="button secondary" type="button">Atualizar</button><button id="export" class="button secondary" type="button">Exportar CSV</button><button id="disconnect" class="button danger" type="button">Desconectar</button></div></div>
+    <div class="filters">
+      <label>Busca<input id="q" type="search" placeholder="Lead, campo ou valor"></label>
+      <label>Lead ID<input id="lead-id" type="search" placeholder="Todos"></label>
+      <label>Período<select id="period"><option value="">Todos</option><option value="24h">Últimas 24h</option><option value="7d">Últimos 7 dias</option><option value="30d">Últimos 30 dias</option></select></label>
+      <label>Limite<select id="limit"><option>50</option><option selected>100</option><option>250</option><option>500</option></select></label>
+    </div>
+    <div class="table-wrap"><table><thead><tr><th>Data</th><th>Lead</th><th>Ação</th><th>Alterações</th><th>Origem</th></tr></thead><tbody id="rows"></tbody></table></div>
+    <p class="empty" id="empty" hidden>Nenhum evento corresponde aos filtros.</p>
+    <p class="status" id="table-status" aria-live="polite"></p>
+  </section>
+</section>
+</main>
+<footer><span>ChefSapiens — auditoria interna de homologação.</span><a href="/cockpit">Cockpit</a><a href="/agenda">Agenda</a></footer>
+<script src="/audit-assets/audit.js" defer></script>
+</body>
+</html>
