@@ -53,7 +53,14 @@
     "dashboard_api": 200,
     "checkout_intent": 202,
     "production_root": 200,
-    "result": "PORTAL_V15_SMOKE_OK"
+    "result": "ADMIN_V16_SMOKE_OK",
+    "/cockpit": 200,
+    "/cockpit.html": 200,
+    "/admin-assets/cockpit.css": 200,
+    "/admin-assets/cockpit.js": 200,
+    "admin_guard": 401,
+    "admin_data": 200,
+    "admin_records": 4
   },
   "evidence": {
     "artifact_check_operation_id": 104034698,
@@ -61,11 +68,40 @@
     "portal_publish_operation_id": 104034829,
     "portal_smoke_operation_id": 104034854,
     "publisher_result": "PORTAL_V15_PUBLISH_OK",
-    "caddy_backup": "/backups/Caddyfile.before-chefsapiens-portal-v15-20260713T161016"
+    "caddy_backup": "/backups/Caddyfile.before-chefsapiens-portal-v15-20260713T161016",
+    "admin_deploy_operation_id": 104035623,
+    "admin_publish_operation_id": 104035696,
+    "admin_smoke_operation_id": 104035723,
+    "admin_publisher_result": "ADMIN_V16_PUBLISH_OK",
+    "admin_caddy_backup": "/backups/Caddyfile.before-chefsapiens-admin-v16-20260713T162243"
   },
   "rollback": {
     "vps_snapshot_id": 297218,
-    "caddy_backup": "/backups/Caddyfile.before-chefsapiens-portal-v15-20260713T161016"
+    "caddy_backup": "/backups/Caddyfile.before-chefsapiens-admin-v16-20260713T162243"
   },
-  "updated_at": "2026-07-13T16:10:41Z"
+  "updated_at": "2026-07-13T16:23:08Z",
+  "admin_cockpit": {
+    "status": "green",
+    "version": "1.6",
+    "path": "/cockpit",
+    "project": "chefsapiens-admin-hml",
+    "container": "chefsapiens-admin-hml",
+    "isolated": true,
+    "admin_key_storage": "sessionStorage_only",
+    "features": [
+      "lead_metrics",
+      "search_and_filters",
+      "priority_scoring",
+      "trial_and_sales_sources",
+      "csv_export",
+      "no_external_crm"
+    ],
+    "records_verified": 4,
+    "artifacts_commit": "b95f270eb05e852d9fb19df718e854760e96b7e4",
+    "artifacts": {
+      "cockpit_html_sha256": "79a5df488d30d8d7b0725fad39a65f5fbd9f8b7556ebb6fd21de1359160aafcc",
+      "cockpit_css_sha256": "2e12f666402ab30b63fa7757ab316a8e3b0d3f8c3d410e11d803a2446fc4a0ff",
+      "cockpit_js_sha256": "2e644a63234ceb4a630912d5f5fdc2e81dcb421231caee6d896f3b06b60daec1"
+    }
+  }
 }
