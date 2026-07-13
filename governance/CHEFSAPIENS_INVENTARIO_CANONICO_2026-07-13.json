@@ -1,0 +1,468 @@
+{
+  "schema": "chefsapiens.canonical-inventory.v1",
+  "inventory_id": "chefsapiens-canonical-2026-07-13",
+  "generated_at": "2026-07-13T18:36:04Z",
+  "timezone": "America/Sao_Paulo",
+  "classification": {
+    "environment": "homologation",
+    "autonomy_level": "A4",
+    "authorization_basis": "explicit_user_authorization_for_homologation_only",
+    "production_promotion_authorized": false,
+    "secrets_included": false
+  },
+  "scope": {
+    "product": "ChefSapiens",
+    "repository": "milenapsa/chefsapiens",
+    "branch": "main",
+    "homologation_url": "https://culinaria-rc3-hml.homosapiens.id",
+    "production_url": "https://chefsapiens.homosapiens.id",
+    "vps_id": 1799286,
+    "vps_ip": "76.13.226.21",
+    "dns_zone": "homosapiens.id",
+    "dns_record": {
+      "name": "culinaria-rc3-hml",
+      "type": "A",
+      "content": "76.13.226.21",
+      "ttl": 14400
+    }
+  },
+  "runtime": {
+    "core_api": {
+      "project": "chefsapiens-rc3-hml",
+      "container": "chefsapiens-rc3-hml-app",
+      "image": "node:22-alpine",
+      "version": "1.2.0-rc.1",
+      "internal_port": 8080,
+      "status": "running",
+      "health": "healthy",
+      "restart_count": 0,
+      "created_at": "2026-07-13T02:16:53.664532643Z",
+      "persistent_volume": "chefsapiens-rc3-hml_chefsapiens_rc3_data"
+    },
+    "customer_portal": {
+      "project": "chefsapiens-portal-hml",
+      "container": "chefsapiens-portal-hml",
+      "image": "node:22-alpine",
+      "version": "1.5",
+      "internal_port": 8081,
+      "status": "running",
+      "health": "healthy",
+      "restart_count": 0,
+      "created_at": "2026-07-13T16:09:14.413298938Z",
+      "billing_live": false
+    },
+    "admin_cockpit": {
+      "project": "chefsapiens-admin-hml",
+      "container": "chefsapiens-admin-hml",
+      "image": "node:22-alpine",
+      "version": "1.8",
+      "internal_port": 8082,
+      "status": "running",
+      "health": "healthy",
+      "restart_count": 0,
+      "created_at": "2026-07-13T17:24:46.926810867Z",
+      "pipeline": true,
+      "editable": true,
+      "persistent_volume": "chefsapiens-admin-hml_chefsapiens_admin_data"
+    },
+    "commercial_agenda": {
+      "project": "chefsapiens-agenda-hml",
+      "container": "chefsapiens-agenda-hml",
+      "image": "node:22-alpine",
+      "version": "1.9",
+      "internal_port": 8083,
+      "status": "running",
+      "health": "healthy",
+      "restart_count": 0,
+      "created_at": "2026-07-13T17:44:27.443548727Z"
+    },
+    "gateway": {
+      "project": "gateway-health",
+      "container": "media-studio-caddy",
+      "image": "caddy:2-alpine",
+      "version_observed": "v2.11.4",
+      "status": "running",
+      "healthcheck": "not_configured",
+      "restart_count": 0,
+      "created_at": "2026-07-12T20:23:12.61626168Z",
+      "ports": [
+        80,
+        443
+      ],
+      "network": "gateway-health_default"
+    },
+    "production": {
+      "project": "chefsapiens-prod",
+      "container": "chefsapiens-prod-app",
+      "image": "chefsapiens-hml:1.0",
+      "status": "running",
+      "health": "healthy",
+      "changed_by_this_release": false
+    },
+    "rc2": {
+      "project": "chefsapiens-rc2-hml",
+      "container": "chefsapiens-rc2-hml-app",
+      "image": "chefsapiens:1.1.0-rc.2-hml",
+      "status": "running",
+      "health": "healthy",
+      "changed_by_this_release": false
+    }
+  },
+  "networking": {
+    "shared_gateway_network": "gateway-health_default",
+    "attached_containers": [
+      "chefsapiens-rc3-hml-app",
+      "chefsapiens-portal-hml",
+      "chefsapiens-admin-hml",
+      "chefsapiens-agenda-hml",
+      "media-studio-caddy",
+      "chefsapiens-prod-app"
+    ],
+    "caddy_marker_begin": "# BEGIN CHEFSAPIENS_RC3_HML",
+    "caddy_marker_end": "# END CHEFSAPIENS_RC3_HML",
+    "routes": [
+      {
+        "path": "/dashboard*",
+        "upstream": "chefsapiens-portal-hml:8081"
+      },
+      {
+        "path": "/start*",
+        "upstream": "chefsapiens-portal-hml:8081"
+      },
+      {
+        "path": "/checkout*",
+        "upstream": "chefsapiens-portal-hml:8081"
+      },
+      {
+        "path": "/portal-assets/*",
+        "upstream": "chefsapiens-portal-hml:8081"
+      },
+      {
+        "path": "/cockpit*",
+        "upstream": "chefsapiens-admin-hml:8082"
+      },
+      {
+        "path": "/admin-assets/*",
+        "upstream": "chefsapiens-admin-hml:8082"
+      },
+      {
+        "path": "/admin-api/*",
+        "upstream": "chefsapiens-admin-hml:8082"
+      },
+      {
+        "path": "/agenda*",
+        "upstream": "chefsapiens-agenda-hml:8083"
+      },
+      {
+        "path": "/agenda-assets/*",
+        "upstream": "chefsapiens-agenda-hml:8083"
+      },
+      {
+        "path": "*",
+        "upstream": "chefsapiens-rc3-hml-app:8080"
+      }
+    ],
+    "security_headers": {
+      "X-Content-Type-Options": "nosniff",
+      "Referrer-Policy": "strict-origin-when-cross-origin",
+      "X-Frame-Options": "SAMEORIGIN",
+      "Permissions-Policy": "camera=(), microphone=(), geolocation=()"
+    }
+  },
+  "features": {
+    "public_commercial": [
+      "responsive_home",
+      "pricing",
+      "developer_docs",
+      "terms_draft",
+      "privacy_draft",
+      "public_status",
+      "lead_capture",
+      "self_service_trial",
+      "api_key_auth",
+      "usage_metering",
+      "quota_headers"
+    ],
+    "portal": [
+      "secure_session_key_connection",
+      "usage_and_quota",
+      "trial_expiry",
+      "authenticated_api_test",
+      "safe_curl_example",
+      "onboarding_checklist",
+      "trial_to_dashboard_handoff",
+      "sandbox_checkout"
+    ],
+    "admin": [
+      "lead_metrics",
+      "search",
+      "filters",
+      "priority_scoring",
+      "csv_export",
+      "stage_editing",
+      "owner_assignment",
+      "next_action",
+      "next_action_date",
+      "internal_notes",
+      "persistent_pipeline"
+    ],
+    "agenda": [
+      "overdue_actions",
+      "today_actions",
+      "next_7_days",
+      "unscheduled_opportunities",
+      "owner_filter",
+      "stage_filter",
+      "search",
+      "csv_export",
+      "reschedule_tomorrow",
+      "reschedule_plus_7_days",
+      "clear_schedule"
+    ],
+    "disabled": [
+      "real_billing",
+      "subscription_creation",
+      "card_processing",
+      "automatic_invoicing",
+      "fiscal_documents",
+      "external_crm_delivery",
+      "automatic_email",
+      "automatic_whatsapp",
+      "production_promotion"
+    ]
+  },
+  "public_endpoints": {
+    "/": 200,
+    "/readyz": 200,
+    "/status.json": 200,
+    "/start": 200,
+    "/checkout": 200,
+    "/dashboard": 200,
+    "/cockpit": 200,
+    "/agenda": 200,
+    "/admin-api/pipeline_without_key": 401,
+    "production_root": 200
+  },
+  "health_bodies": {
+    "core": {
+      "ok": true,
+      "service": "chefsapiens",
+      "version": "1.2.0-rc.1"
+    },
+    "status": {
+      "ok": true,
+      "service": "chefsapiens",
+      "version": "1.2.0-rc.1",
+      "environment": "homologation",
+      "status": "operational",
+      "capabilities": {
+        "api": true,
+        "developerPortal": true,
+        "leadCapture": true,
+        "trialProvisioning": true,
+        "usageMetering": true,
+        "billing": false
+      }
+    },
+    "portal": {
+      "ok": true,
+      "service": "chefsapiens-portal",
+      "version": "1.5",
+      "billingLive": false
+    },
+    "admin": {
+      "ok": true,
+      "service": "chefsapiens-admin",
+      "version": "1.8",
+      "pipeline": true,
+      "editable": true
+    },
+    "agenda": {
+      "ok": true,
+      "service": "chefsapiens-agenda",
+      "version": "1.9"
+    }
+  },
+  "data_and_security": {
+    "core_state_path": "/data",
+    "admin_pipeline_state": "/data/pipeline.json",
+    "trial_key_delivery": "one_time",
+    "raw_trial_key_stored": false,
+    "portal_key_storage": "sessionStorage_only",
+    "admin_key_storage_in_browser": "sessionStorage_only",
+    "key_in_url": false,
+    "localStorage_used_for_keys": false,
+    "admin_endpoint_protected": true,
+    "admin_endpoint_without_key_http": 401,
+    "leads_confidential": true,
+    "secrets_location": "docker_environment_only",
+    "secrets_in_repository": false,
+    "secrets_in_inventory": false
+  },
+  "rollback": {
+    "vps_snapshot": {
+      "id": 297218,
+      "created_at": "2026-07-12T18:16:43Z",
+      "status": "available"
+    },
+    "caddy_backups": {
+      "portal": "/backups/Caddyfile.before-chefsapiens-portal-v15-20260713T161016",
+      "admin": "/backups/Caddyfile.before-chefsapiens-admin-v16-20260713T162243",
+      "admin_pipeline": "/backups/Caddyfile.before-chefsapiens-admin-pipeline-20260713T172518",
+      "agenda": "/backups/Caddyfile.before-chefsapiens-agenda-v19-20260713T174523"
+    }
+  },
+  "artifacts": {
+    "portal": {
+      "version": "1.5",
+      "commit": "842c741adafa5b9a5962efe57ea7faf0c913114b"
+    },
+    "admin": {
+      "version": "1.8",
+      "commit": "828421ea1447b5a65e690641350af397417c950c"
+    },
+    "agenda": {
+      "version": "1.9",
+      "commit": "7341baa1a50a14406e9b58ae81c23bab227e2e7d"
+    },
+    "governance": {
+      "state_file": "governance/CHEFSAPIENS_ESTADO_RC3.json",
+      "agenda_file": "governance/CHEFSAPIENS_AGENDA_V19.json"
+    }
+  },
+  "operations": {
+    "core_deploy": 103913698,
+    "core_caddy_publish": 103913707,
+    "core_public_smoke": 103913712,
+    "core_restart": 103913719,
+    "core_persistence_smoke": 103913730,
+    "portal_artifact_check": 104034698,
+    "portal_deploy": 104034737,
+    "portal_publish": 104034829,
+    "portal_smoke": 104034854,
+    "admin_deploy": 104035623,
+    "admin_publish": 104035696,
+    "admin_smoke": 104035723,
+    "pipeline_deploy": 104037974,
+    "pipeline_publish": 104038499,
+    "pipeline_smoke": 104038526,
+    "pipeline_persistence_smoke": 104038558,
+    "admin_v18_artifact_check": 104039821,
+    "admin_v18_deploy": 104039840,
+    "admin_v18_republish": 104039868,
+    "admin_v18_final_smoke": 104039973,
+    "admin_v18_restart": 104039983,
+    "admin_v18_persistence_smoke": 104039998,
+    "agenda_deploy": 104040878,
+    "agenda_publish": 104040908,
+    "agenda_smoke": 104040926,
+    "inventory_scan": 104043768
+  },
+  "incidents": [
+    {
+      "id": "INC-001",
+      "scope": "core_deploy",
+      "issue": "legacy_openapi_checker_rejected_intentionally_public_commercial_routes",
+      "resolution": "replaced_with_explicit_operation_and_schema_validation",
+      "final_status": "resolved"
+    },
+    {
+      "id": "INC-002",
+      "scope": "commercial_smoke",
+      "issue": "trial_returned_503_because_commercial_enabled_was_omitted",
+      "resolution": "enabled_commercial_mode_and_redeployed",
+      "final_status": "resolved"
+    },
+    {
+      "id": "INC-003",
+      "scope": "portal_publish",
+      "issue": "first_caddy_publisher_submission_had_invalid_yaml",
+      "resolution": "retried_with_base64_encoded_script",
+      "final_status": "resolved"
+    },
+    {
+      "id": "INC-004",
+      "scope": "portal_artifacts",
+      "issue": "local_and_github_hashes_differed",
+      "resolution": "measured_actual_github_blobs_and_pinned_verified_hashes",
+      "final_status": "resolved"
+    },
+    {
+      "id": "INC-005",
+      "scope": "admin_v18_smoke",
+      "issue": "browser_javascript_was_initially_executed_inside_node",
+      "resolution": "replaced_with_node_syntax_check_and_functional_http_api_smoke",
+      "final_status": "resolved"
+    },
+    {
+      "id": "INC-006",
+      "scope": "hostinger_project_listing",
+      "issue": "aggregate_project_list_returned_vps_9999",
+      "resolution": "used_direct_docker_socket_inventory_scan",
+      "final_status": "workaround_active"
+    }
+  ],
+  "historical_and_test_resources": {
+    "observation": "multiple exited smoke, diagnostic and publisher containers remain on the VPS",
+    "cleanup_performed": false,
+    "reason": "cleanup_is_consequential_and_was_not_required_for_inventory_integrity",
+    "notable_running_legacy_resources": [
+      "chefsapiens-rc2-hml-app",
+      "chefsapiens-rc2-hml-configure",
+      "chefsapiens-caddy-reissue"
+    ],
+    "failed_historical_smokes_observed": [
+      "chefsapiens-admin-v18-smoke",
+      "chefsapiens-smoke-prod",
+      "chefsapiens-smoke-hml"
+    ]
+  },
+  "commercial_state": {
+    "verified_lead_records": 4,
+    "test_leads_and_trials_present": true,
+    "test_data_cleanup_performed": false,
+    "pipeline_test_record": {
+      "stage": "proposal",
+      "owner": "Equipe comercial",
+      "purpose": "homologation_only"
+    },
+    "agenda_test_record": {
+      "stage": "proposal",
+      "scheduled_at": "2026-07-14T12:00:00.000Z",
+      "purpose": "homologation_only"
+    }
+  },
+  "limitations_and_gates": [
+    "production promotion requires separate explicit A4 approval naming production",
+    "legal terms and privacy drafts require human legal approval",
+    "operator identity and commercial conditions require final approval",
+    "pricing values are homologation references and are not a binding offer",
+    "billing provider is not configured",
+    "CRM delivery is not configured",
+    "formal SLA and incident process are not approved",
+    "visual browser review is not recorded",
+    "test leads and trials have not been deleted",
+    "historical Docker resources have not been cleaned up"
+  ],
+  "canonical_truths": [
+    "core deployed version is 1.2.0-rc.1",
+    "portal version 1.5 is a separate module",
+    "admin cockpit version 1.8 is a separate module",
+    "commercial agenda version 1.9 is a separate module",
+    "billing is false",
+    "production was not changed",
+    "rc2 was not changed",
+    "trial-to-dashboard handoff is active in homologation",
+    "admin and portal keys are not stored in URLs or localStorage",
+    "inventory contains no secrets"
+  ],
+  "evidence": {
+    "inventory_scan_result": "INVENTORY_SCAN_OK",
+    "scan_operation_id": 104043768,
+    "scan_timestamp": "2026-07-13T18:35:59Z",
+    "github_project_listing_error": {
+      "code": "VPS:9999",
+      "correlation_id": "a2403b6e-9f6d-433b-a362-b1f032b7e628"
+    }
+  }
+}
