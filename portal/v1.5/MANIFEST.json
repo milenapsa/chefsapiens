@@ -1,0 +1,13 @@
+{
+  "schema": "chefsapiens.portal-release.v1",
+  "version": "1.5",
+  "mode": "homologation",
+  "features": [
+    "trial_to_dashboard",
+    "one_time_key_delivery",
+    "sandbox_checkout",
+    "lead_intent_capture"
+  ],
+  "billing_live": false,
+  "production_change": false
+}
