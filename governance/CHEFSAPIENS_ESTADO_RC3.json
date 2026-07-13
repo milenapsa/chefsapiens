@@ -14,55 +14,58 @@
     "trial_days": 14,
     "trial_quota": 1000,
     "usage_metering": true,
-    "admin_lead_export": true,
-    "billing": false,
+    "billing_live": false,
     "crm_delivery": false,
     "legal_approval": "pending_human_review"
   },
   "customer_portal": {
     "status": "green",
-    "version": "1.4",
-    "path": "/dashboard",
+    "version": "1.5",
     "project": "chefsapiens-portal-hml",
     "container": "chefsapiens-portal-hml",
-    "isolated": true,
-    "api_key_storage": "sessionStorage_only",
+    "paths": [
+      "/dashboard",
+      "/start",
+      "/checkout"
+    ],
     "features": [
-      "secure_key_connection",
+      "secure_session_key_connection",
       "quota_and_usage",
       "trial_expiry",
       "authenticated_api_test",
-      "safe_curl_example",
-      "onboarding_checklist"
+      "self_service_trial",
+      "one_time_key_delivery",
+      "sandbox_checkout",
+      "lead_intent_capture"
     ],
-    "artifacts": {
-      "dashboard_html_sha256": "4fe5d7de758c729e355aec05aab53fa7f267faa9d39dd0050591c6c36c598114",
-      "dashboard_css_sha256": "1d5e951a6a22c3aa0a47e2c98a06afaa9728cb09d32a0c7811bdd08af4e8bf2e",
-      "dashboard_js_sha256": "1062b999d322827c2d4b3aef1f7adcb46fa023bca568156f57c3df82a35f1775",
-      "last_commit": "dcabcce49a5369ab4dff1e6276eb5d4ac709d1bf"
-    }
+    "billing_live": false,
+    "artifacts_commit": "842c741adafa5b9a5962efe57ea7faf0c913114b"
   },
   "public_smoke": {
+    "/start": 200,
+    "/checkout": 200,
     "/dashboard": 200,
-    "/dashboard.html": 200,
-    "/portal-assets/dashboard.css": 200,
-    "/portal-assets/dashboard.js": 200,
+    "/portal-assets/commerce.css": 200,
+    "/portal-assets/start.js": 200,
+    "/portal-assets/checkout.js": 200,
     "/readyz": 200,
-    "/openapi.json": 200,
-    "auth_guard": 401,
+    "trial_issue": 201,
+    "dashboard_api": 200,
+    "checkout_intent": 202,
     "production_root": 200,
-    "result": "PORTAL_SMOKE_OK"
+    "result": "PORTAL_V15_SMOKE_OK"
   },
   "evidence": {
-    "portal_deploy_operation_id": 104032010,
-    "portal_publish_operation_id": 104032130,
-    "portal_smoke_operation_id": 104032170,
-    "publisher_result": "PORTAL_PUBLISH_OK",
-    "caddy_backup": "/backups/Caddyfile.before-chefsapiens-portal-20260713T154114"
+    "artifact_check_operation_id": 104034698,
+    "portal_deploy_operation_id": 104034737,
+    "portal_publish_operation_id": 104034829,
+    "portal_smoke_operation_id": 104034854,
+    "publisher_result": "PORTAL_V15_PUBLISH_OK",
+    "caddy_backup": "/backups/Caddyfile.before-chefsapiens-portal-v15-20260713T161016"
   },
   "rollback": {
     "vps_snapshot_id": 297218,
-    "caddy_backup": "/backups/Caddyfile.before-chefsapiens-portal-20260713T154114"
+    "caddy_backup": "/backups/Caddyfile.before-chefsapiens-portal-v15-20260713T161016"
   },
-  "updated_at": "2026-07-13T15:41:38Z"
+  "updated_at": "2026-07-13T16:10:41Z"
 }
