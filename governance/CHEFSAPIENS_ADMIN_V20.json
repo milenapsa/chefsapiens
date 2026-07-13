@@ -1,0 +1,90 @@
+{
+  "schema": "chefsapiens.homologation-feature.v1",
+  "feature": "admin_audit_trail",
+  "version": "2.0",
+  "status": "green",
+  "generated_at": "2026-07-13T23:39:38Z",
+  "environment": {
+    "hostname": "culinaria-rc3-hml.homosapiens.id",
+    "path": "/audit",
+    "production_changed": false,
+    "rc2_changed": false
+  },
+  "deployment": {
+    "active_container": "chefsapiens-admin-v20-hml",
+    "rollback_container": "chefsapiens-admin-hml",
+    "persistent_volume": "chefsapiens-admin-hml_chefsapiens_admin_data",
+    "internal_port": 8082,
+    "caddy_backup": "/backups/Caddyfile.before-chefsapiens-admin-v20-20260713T233556",
+    "caddy_backup_pointer": "/backups/LAST_CHEFSAPIENS_ADMIN_V20_BACKUP"
+  },
+  "features": [
+    "append_only_audit_jsonl",
+    "audit_ui",
+    "audit_csv_export",
+    "origin_guard",
+    "lead_existence_validation",
+    "serialized_writes",
+    "atomic_pipeline_state",
+    "redacted_sensitive_change_values",
+    "persistent_audit_after_restart"
+  ],
+  "security": {
+    "admin_key_required": true,
+    "admin_key_in_url": false,
+    "browser_storage": "sessionStorage_only",
+    "allowed_patch_origin": "https://culinaria-rc3-hml.homosapiens.id",
+    "audit_contains_note_content": false,
+    "audit_contains_admin_key": false,
+    "external_transmission": false
+  },
+  "artifacts": {
+    "aggregate_commit": "755502d98b62bc203e32333414877c24a9aab304",
+    "audit_html_sha256": "967314701fa198f45fe4c176d12ce1a9ba7bb2375ae5131100a4de14e6566f04",
+    "audit_css_sha256": "18d320af81b27dd5cf270e34e9c62eb6e6e03c70db53e359d7698dcabdb603ae",
+    "audit_js_sha256": "58b883edab2543d5a285efec35c48f9b1fac8f964d7d60b8251c771d1a3ead78",
+    "server_mjs_sha256": "0484b76fda8d9aeb801c7c827bf797b99c38e264620060655508c20e8c0f5cbd"
+  },
+  "evidence": {
+    "artifact_check_operation_id": 104056208,
+    "migration_operation_id": 104056295,
+    "smoke_operation_id": 104056317,
+    "smoke_result": "ADMIN_V20_SMOKE_OK",
+    "origin_guard_http": 403,
+    "missing_lead_http": 404,
+    "audit_guard_http": 401,
+    "audit_http": 200,
+    "production_http": 200,
+    "persistence_result": "AUDIT_PERSISTENCE_OK",
+    "redaction_result": "AUDIT_REDACTION_OK"
+  },
+  "incidents": [
+    {
+      "scope": "direct_project_update",
+      "issue": "Hostinger project recreation did not preserve the required secret environment variable",
+      "effect": "deployment aborted before container recreation; v1.8 remained active",
+      "resolution": "parallel reversible container migration using the existing secret internally",
+      "status": "resolved"
+    },
+    {
+      "scope": "migrator_packaging",
+      "issue": "compressed script logged truncated input while still completing",
+      "effect": "migration result was not trusted alone",
+      "resolution": "independent public, security, persistence and production smoke",
+      "status": "resolved"
+    },
+    {
+      "scope": "first_v20_smoke",
+      "issue": "BusyBox date syntax stopped the test before mutation",
+      "effect": "no audit event created in that attempt",
+      "resolution": "date generated with jq and smoke rerun",
+      "status": "resolved"
+    }
+  ],
+  "limitations": [
+    "cockpit visual shell remains labeled v1.8 while the active admin backend is v2.0",
+    "no formal visual browser E2E was recorded",
+    "audit retention and rotation policy is not yet automated",
+    "production promotion is not authorized"
+  ]
+}
