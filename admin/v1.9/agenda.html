@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'">
+<title>Agenda comercial — ChefSapiens</title>
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/agenda-assets/agenda.css">
+</head>
+<body>
+<a class="skip" href="#main">Pular para o conteúdo</a>
+<header class="topbar">
+  <a class="brand" href="/"><span class="mark">CS</span><span><strong>ChefSapiens</strong><small>Agenda comercial</small></span></a>
+  <nav aria-label="Navegação">
+    <a href="/cockpit">Cockpit</a>
+    <a href="/start">Trial</a>
+    <a href="/checkout">Checkout</a>
+    <a href="/dashboard">Cliente</a>
+  </nav>
+</header>
+
+<main id="main">
+<section class="hero">
+  <div>
+    <p class="eyebrow">OPERAÇÃO INTERNA • V1.9</p>
+    <h1>Próximas ações comerciais em ordem de urgência.</h1>
+    <p class="lead">Acompanhe atrasos, compromissos de hoje, próximos sete dias e oportunidades sem data. A chave administrativa permanece somente nesta sessão.</p>
+  </div>
+  <aside class="security"><strong>Sem automação externa</strong><p>Nenhum e-mail, WhatsApp ou CRM é acionado. Reagendamentos alteram apenas o pipeline de homologação.</p></aside>
+</section>
+
+<section class="panel" id="auth-panel">
+  <div class="panel-head"><div><p class="eyebrow">ACESSO</p><h2>Conectar chave administrativa</h2></div><span class="pill neutral" id="auth-state">Desconectado</span></div>
+  <form id="auth-form">
+    <label for="admin-key">Admin API key</label>
+    <div class="key-row"><input id="admin-key" type="password" autocomplete="off" spellcheck="false" required><button class="button primary" type="submit">Conectar</button></div>
+    <p class="status" id="auth-status" aria-live="polite"></p>
+  </form>
+</section>
+
+<section id="workspace" hidden>
+  <section class="metrics" aria-label="Resumo da agenda">
+    <article><span>Atrasadas</span><strong id="m-overdue">0</strong><small>exigem atenção</small></article>
+    <article><span>Hoje</span><strong id="m-today">0</strong><small>ações programadas</small></article>
+    <article><span>Próximos 7 dias</span><strong id="m-next7">0</strong><small>agenda próxima</small></article>
+    <article><span>Sem data</span><strong id="m-unscheduled">0</strong><small>precisam de definição</small></article>
+    <article><span>Em proposta</span><strong id="m-proposal">0</strong><small>oportunidades abertas</small></article>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head">
+      <div><p class="eyebrow">AGENDA</p><h2>Central de ações</h2></div>
+      <div class="actions">
+        <button id="refresh" class="button secondary" type="button">Atualizar</button>
+        <button id="export" class="button secondary" type="button">Exportar CSV</button>
+        <button id="disconnect" class="button danger" type="button">Desconectar</button>
+      </div>
+    </div>
+
+    <div class="filters">
+      <label>Busca<input id="q" type="search" placeholder="Contato, empresa ou ação"></label>
+      <label>Responsável<input id="owner" type="search" placeholder="Todos"></label>
+      <label>Etapa<select id="stage"><option value="">Todas</option><option value="new">Novo</option><option value="qualified">Qualificado</option><option value="contacted">Contatado</option><option value="proposal">Proposta</option><option value="won">Ganho</option><option value="lost">Perdido</option></select></label>
+      <label>Janela<select id="window"><option value="">Todas</option><option value="overdue">Atrasadas</option><option value="today">Hoje</option><option value="next7">Próximos 7 dias</option><option value="unscheduled">Sem data</option></select></label>
+    </div>
+
+    <div class="agenda-grid" id="agenda-grid">
+      <section class="lane lane-overdue">
+        <div class="lane-head"><h3>Atrasadas</h3><span id="c-overdue">0</span></div>
+        <div class="cards" id="cards-overdue"></div>
+      </section>
+      <section class="lane">
+        <div class="lane-head"><h3>Hoje</h3><span id="c-today">0</span></div>
+        <div class="cards" id="cards-today"></div>
+      </section>
+      <section class="lane">
+        <div class="lane-head"><h3>Próximos 7 dias</h3><span id="c-next7">0</span></div>
+        <div class="cards" id="cards-next7"></div>
+      </section>
+      <section class="lane">
+        <div class="lane-head"><h3>Sem data</h3><span id="c-unscheduled">0</span></div>
+        <div class="cards" id="cards-unscheduled"></div>
+      </section>
+    </div>
+
+    <p class="status" id="agenda-status" aria-live="polite"></p>
+  </section>
+</section>
+</main>
+
+<footer><span>ChefSapiens — agenda interna de homologação.</span><a href="/cockpit">Abrir cockpit</a><a href="/status.html">Status</a></footer>
+<script src="/agenda-assets/agenda.js" defer></script>
+</body>
+</html>
