@@ -1,0 +1,44 @@
+{
+  "schema": "chefsapiens.runtime-patch.v1",
+  "version": "1.2.0-rc.2",
+  "artifact": "chefsapiens-commercial-v1.4-runtime.zip",
+  "bytes": 40439,
+  "sha256": "823fcc5b46faa59fa8003bd97ae50911c5be5d7a1b484a771229a240bd1a47ac",
+  "order": [
+    "runtime.part00",
+    "runtime.part01",
+    "runtime.part02",
+    "runtime.part03",
+    "runtime.part04",
+    "runtime.part05"
+  ],
+  "files": [
+    "package.json",
+    "api/openapi.mjs",
+    "site/index.html",
+    "site/service-worker.js",
+    "site/docs.html",
+    "site/pricing.html",
+    "site/terms.html",
+    "site/privacy.html",
+    "site/status.html",
+    "site/dashboard.html",
+    "site/assets/style.css",
+    "site/assets/js/commercial.js",
+    "site/assets/js/dashboard.js"
+  ],
+  "validation": {
+    "tests_passed": 110,
+    "tests_failed": 0,
+    "check": "passed",
+    "a11y": "passed",
+    "scope": "passed",
+    "openapi": {
+      "operations": 15,
+      "schemas": 15
+    },
+    "secret_scan": "passed",
+    "local_homologation": "passed",
+    "browser": "blocked_by_mandatory_policy"
+  }
+}
