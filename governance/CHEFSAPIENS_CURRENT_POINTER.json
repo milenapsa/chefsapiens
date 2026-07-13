@@ -1,0 +1,64 @@
+{
+  "schema": "chefsapiens.current-state-pointer.v1",
+  "generated_at": "2026-07-13T23:40:32Z",
+  "environment": "homologation",
+  "production_promotion_authorized": false,
+  "base_inventory": {
+    "path": "governance/CHEFSAPIENS_INVENTARIO_CANONICO_2026-07-13.json",
+    "commit": "7d875bddcbb9f54230754457869412ee972ec28c",
+    "sha256": "1b7e9337f6e97d33824c468d638d2da145b913ea17ea9fb2de244df0ceb4d8cf"
+  },
+  "deltas": [
+    {
+      "name": "commercial_agenda_v1.9",
+      "path": "governance/CHEFSAPIENS_AGENDA_V19.json",
+      "commit": "8a446055d0fdc471519ab66301794b242815454a"
+    },
+    {
+      "name": "admin_audit_v2.0",
+      "path": "governance/CHEFSAPIENS_ADMIN_V20.json",
+      "commit": "6dd0fc758ffea40f972822bc0d088c7223fd9831",
+      "sha256": "694ca277beeadc405efd96ba7aa5db168df91f112e20781189363fa42847fc26"
+    }
+  ],
+  "schema_validation": {
+    "path": "governance/CHEFSAPIENS_INVENTARIO_SCHEMA_V1.json",
+    "commit": "2915e1b0ca4070707fe7c0cf19718bd7851dd157",
+    "result": "CANONICAL_SCHEMA_VALIDATION_OK"
+  },
+  "monitor": {
+    "version": "2",
+    "path": "governance/monitor/chefsapiens-drift-monitor-v2.sh",
+    "commit": "a9c736f0dbbf9a11236abf619448593d2d322b25",
+    "sha256": "e58956b3652bda74cba11db8fab536b9fcd52d3268825bea1122fdd6e0aa1e0a",
+    "interval_seconds": 900,
+    "latest_status": "green",
+    "latest_drift_count": 0,
+    "latest_checked_at": "2026-07-13T23:38:58Z",
+    "persistence_check_operation_id": 104056392
+  },
+  "versions": {
+    "core": "1.2.0-rc.1",
+    "portal": "1.5",
+    "cockpit_ui": "1.8",
+    "admin_backend": "2.0",
+    "audit_ui": "2.0",
+    "agenda": "1.9"
+  },
+  "active_routes": [
+    "/",
+    "/start",
+    "/checkout",
+    "/dashboard",
+    "/cockpit",
+    "/audit",
+    "/agenda"
+  ],
+  "disabled": [
+    "real_billing",
+    "external_crm",
+    "automatic_email",
+    "automatic_whatsapp",
+    "production_promotion"
+  ]
+}
