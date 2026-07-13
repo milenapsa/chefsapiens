@@ -1,0 +1,647 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://chefsapiens.homosapiens.id/schemas/canonical-inventory-v1.json",
+  "title": "ChefSapiens Canonical Inventory v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "inventory_id",
+    "generated_at",
+    "timezone",
+    "classification",
+    "scope",
+    "runtime",
+    "networking",
+    "features",
+    "public_endpoints",
+    "health_bodies",
+    "data_and_security",
+    "rollback",
+    "artifacts",
+    "operations",
+    "incidents",
+    "historical_and_test_resources",
+    "commercial_state",
+    "limitations_and_gates",
+    "canonical_truths",
+    "evidence"
+  ],
+  "properties": {
+    "schema": {
+      "const": "chefsapiens.canonical-inventory.v1"
+    },
+    "inventory_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "timezone": {
+      "const": "America/Sao_Paulo"
+    },
+    "classification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "environment",
+        "autonomy_level",
+        "authorization_basis",
+        "production_promotion_authorized",
+        "secrets_included"
+      ],
+      "properties": {
+        "environment": {
+          "const": "homologation"
+        },
+        "autonomy_level": {
+          "enum": [
+            "A0",
+            "A1",
+            "A2",
+            "A3",
+            "A4"
+          ]
+        },
+        "authorization_basis": {
+          "type": "string",
+          "minLength": 1
+        },
+        "production_promotion_authorized": {
+          "const": false
+        },
+        "secrets_included": {
+          "const": false
+        }
+      }
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "product",
+        "repository",
+        "branch",
+        "homologation_url",
+        "production_url",
+        "vps_id",
+        "vps_ip",
+        "dns_zone",
+        "dns_record"
+      ],
+      "properties": {
+        "product": {
+          "const": "ChefSapiens"
+        },
+        "repository": {
+          "type": "string",
+          "pattern": "^[^/]+/[^/]+$"
+        },
+        "branch": {
+          "type": "string",
+          "minLength": 1
+        },
+        "homologation_url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "production_url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "vps_id": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "vps_ip": {
+          "type": "string",
+          "format": "ipv4"
+        },
+        "dns_zone": {
+          "type": "string",
+          "minLength": 1
+        },
+        "dns_record": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "name",
+            "type",
+            "content",
+            "ttl"
+          ],
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "type": {
+              "const": "A"
+            },
+            "content": {
+              "type": "string",
+              "format": "ipv4"
+            },
+            "ttl": {
+              "type": "integer",
+              "minimum": 60
+            }
+          }
+        }
+      }
+    },
+    "runtime": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "core_api",
+        "customer_portal",
+        "admin_cockpit",
+        "commercial_agenda",
+        "gateway",
+        "production",
+        "rc2"
+      ],
+      "properties": {
+        "core_api": {
+          "type": "object",
+          "required": [
+            "project",
+            "container",
+            "image",
+            "status",
+            "health"
+          ],
+          "properties": {
+            "project": {
+              "type": "string",
+              "minLength": 1
+            },
+            "container": {
+              "type": "string",
+              "minLength": 1
+            },
+            "image": {
+              "type": "string",
+              "minLength": 1
+            },
+            "status": {
+              "enum": [
+                "running",
+                "exited",
+                "created",
+                "paused",
+                "restarting",
+                "dead"
+              ]
+            },
+            "health": {
+              "enum": [
+                "healthy",
+                "unhealthy",
+                "starting",
+                "none",
+                "not_configured"
+              ]
+            }
+          }
+        },
+        "customer_portal": {
+          "type": "object",
+          "required": [
+            "project",
+            "container",
+            "image",
+            "status",
+            "health"
+          ],
+          "properties": {
+            "project": {
+              "type": "string",
+              "minLength": 1
+            },
+            "container": {
+              "type": "string",
+              "minLength": 1
+            },
+            "image": {
+              "type": "string",
+              "minLength": 1
+            },
+            "status": {
+              "enum": [
+                "running",
+                "exited",
+                "created",
+                "paused",
+                "restarting",
+                "dead"
+              ]
+            },
+            "health": {
+              "enum": [
+                "healthy",
+                "unhealthy",
+                "starting",
+                "none",
+                "not_configured"
+              ]
+            }
+          }
+        },
+        "admin_cockpit": {
+          "type": "object",
+          "required": [
+            "project",
+            "container",
+            "image",
+            "status",
+            "health"
+          ],
+          "properties": {
+            "project": {
+              "type": "string",
+              "minLength": 1
+            },
+            "container": {
+              "type": "string",
+              "minLength": 1
+            },
+            "image": {
+              "type": "string",
+              "minLength": 1
+            },
+            "status": {
+              "enum": [
+                "running",
+                "exited",
+                "created",
+                "paused",
+                "restarting",
+                "dead"
+              ]
+            },
+            "health": {
+              "enum": [
+                "healthy",
+                "unhealthy",
+                "starting",
+                "none",
+                "not_configured"
+              ]
+            }
+          }
+        },
+        "commercial_agenda": {
+          "type": "object",
+          "required": [
+            "project",
+            "container",
+            "image",
+            "status",
+            "health"
+          ],
+          "properties": {
+            "project": {
+              "type": "string",
+              "minLength": 1
+            },
+            "container": {
+              "type": "string",
+              "minLength": 1
+            },
+            "image": {
+              "type": "string",
+              "minLength": 1
+            },
+            "status": {
+              "enum": [
+                "running",
+                "exited",
+                "created",
+                "paused",
+                "restarting",
+                "dead"
+              ]
+            },
+            "health": {
+              "enum": [
+                "healthy",
+                "unhealthy",
+                "starting",
+                "none",
+                "not_configured"
+              ]
+            }
+          }
+        },
+        "production": {
+          "type": "object",
+          "required": [
+            "project",
+            "container",
+            "image",
+            "status",
+            "health"
+          ],
+          "properties": {
+            "project": {
+              "type": "string",
+              "minLength": 1
+            },
+            "container": {
+              "type": "string",
+              "minLength": 1
+            },
+            "image": {
+              "type": "string",
+              "minLength": 1
+            },
+            "status": {
+              "enum": [
+                "running",
+                "exited",
+                "created",
+                "paused",
+                "restarting",
+                "dead"
+              ]
+            },
+            "health": {
+              "enum": [
+                "healthy",
+                "unhealthy",
+                "starting",
+                "none",
+                "not_configured"
+              ]
+            }
+          }
+        },
+        "rc2": {
+          "type": "object",
+          "required": [
+            "project",
+            "container",
+            "image",
+            "status",
+            "health"
+          ],
+          "properties": {
+            "project": {
+              "type": "string",
+              "minLength": 1
+            },
+            "container": {
+              "type": "string",
+              "minLength": 1
+            },
+            "image": {
+              "type": "string",
+              "minLength": 1
+            },
+            "status": {
+              "enum": [
+                "running",
+                "exited",
+                "created",
+                "paused",
+                "restarting",
+                "dead"
+              ]
+            },
+            "health": {
+              "enum": [
+                "healthy",
+                "unhealthy",
+                "starting",
+                "none",
+                "not_configured"
+              ]
+            }
+          }
+        },
+        "gateway": {
+          "type": "object",
+          "required": [
+            "project",
+            "container",
+            "image",
+            "status",
+            "healthcheck",
+            "ports",
+            "network"
+          ],
+          "properties": {
+            "project": {
+              "type": "string"
+            },
+            "container": {
+              "type": "string"
+            },
+            "image": {
+              "type": "string"
+            },
+            "status": {
+              "enum": [
+                "running",
+                "exited",
+                "created",
+                "paused",
+                "restarting",
+                "dead"
+              ]
+            },
+            "healthcheck": {
+              "enum": [
+                "healthy",
+                "unhealthy",
+                "starting",
+                "none",
+                "not_configured"
+              ]
+            },
+            "ports": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 65535
+              }
+            },
+            "network": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "networking": {
+      "type": "object"
+    },
+    "features": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "public_commercial",
+        "portal",
+        "admin",
+        "agenda",
+        "disabled"
+      ],
+      "properties": {
+        "public_commercial": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "portal": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "admin": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "agenda": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "disabled": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "public_endpoints": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "integer",
+        "minimum": 100,
+        "maximum": 599
+      }
+    },
+    "health_bodies": {
+      "type": "object"
+    },
+    "data_and_security": {
+      "type": "object",
+      "required": [
+        "raw_trial_key_stored",
+        "key_in_url",
+        "localStorage_used_for_keys",
+        "admin_endpoint_protected",
+        "secrets_in_repository",
+        "secrets_in_inventory"
+      ],
+      "properties": {
+        "raw_trial_key_stored": {
+          "const": false
+        },
+        "key_in_url": {
+          "const": false
+        },
+        "localStorage_used_for_keys": {
+          "const": false
+        },
+        "admin_endpoint_protected": {
+          "const": true
+        },
+        "secrets_in_repository": {
+          "const": false
+        },
+        "secrets_in_inventory": {
+          "const": false
+        }
+      }
+    },
+    "rollback": {
+      "type": "object"
+    },
+    "artifacts": {
+      "type": "object"
+    },
+    "operations": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "integer",
+        "minimum": 1
+      }
+    },
+    "incidents": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "scope",
+          "issue",
+          "resolution",
+          "final_status"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^INC-[0-9]{3,}$"
+          },
+          "scope": {
+            "type": "string"
+          },
+          "issue": {
+            "type": "string"
+          },
+          "resolution": {
+            "type": "string"
+          },
+          "final_status": {
+            "enum": [
+              "resolved",
+              "workaround_active",
+              "open"
+            ]
+          }
+        }
+      }
+    },
+    "historical_and_test_resources": {
+      "type": "object"
+    },
+    "commercial_state": {
+      "type": "object"
+    },
+    "limitations_and_gates": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "canonical_truths": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "evidence": {
+      "type": "object"
+    }
+  }
+}
