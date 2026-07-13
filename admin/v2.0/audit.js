@@ -1,0 +1,23 @@
+const $=s=>document.querySelector(s);
+const state={key:sessionStorage.getItem("chefsapiens.admin.session")||"",all:[],filtered:[]};
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
+const msg=(id,text,type="")=>{const el=$(id);el.textContent=text;el.className=`status ${type}`.trim()};
+const fmt=v=>{if(!v)return"—";const d=new Date(v);return Number.isNaN(d.getTime())?"—":new Intl.DateTimeFormat("pt-BR",{dateStyle:"short",timeStyle:"medium"}).format(d)};
+const connected=on=>{$("#workspace").hidden=!on;$("#auth-state").textContent=on?"Conectado":"Desconectado";$("#auth-state").className=`pill ${on?"":"neutral"}`;if(on)$("#admin-key").value=""};
+async function api(path){const r=await fetch(path,{headers:{"x-admin-key":state.key}});let j={};try{j=await r.json()}catch{}if(!r.ok){const e=new Error(j?.error?.message||`Falha HTTP ${r.status}`);e.status=r.status;throw e}return j}
+function render(){
+ const q=$("#q").value.trim().toLowerCase(),lead=$("#lead-id").value.trim().toLowerCase(),period=$("#period").value;
+ const now=Date.now(),cut=period==="24h"?now-86400000:period==="7d"?now-7*86400000:period==="30d"?now-30*86400000:0;
+ state.filtered=state.all.filter(e=>{const hay=[e.id,e.leadId,e.action,JSON.stringify(e.changes||{}),e.source].join(" ").toLowerCase();const t=new Date(e.timestamp).getTime();return(!q||hay.includes(q))&&(!lead||String(e.leadId||"").toLowerCase().includes(lead))&&(!cut||t>=cut)});
+ const leads=new Set(state.all.map(e=>e.leadId).filter(Boolean)),day=state.all.filter(e=>Date.now()-new Date(e.timestamp).getTime()<=86400000).length,fields=state.all.reduce((n,e)=>n+Object.keys(e.changes||{}).length,0);
+ $("#m-total").textContent=state.all.length;$("#m-leads").textContent=leads.size;$("#m-day").textContent=day;$("#m-fields").textContent=fields;
+ $("#rows").innerHTML=state.filtered.map(e=>`<tr><td>${esc(fmt(e.timestamp))}</td><td><span class="muted">${esc(e.leadId||"—")}</span></td><td><span class="event">${esc(e.action||"update")}</span></td><td><div class="fields">${Object.entries(e.changes||{}).map(([k,v])=>`<span class="field" title="${esc(String(v?.from??""))} → ${esc(String(v?.to??""))}">${esc(k)}</span>`).join("")||'<span class="muted">Sem campos</span>'}</div></td><td>${esc(e.source||"admin-api")}</td></tr>`).join("");
+ $("#empty").hidden=state.filtered.length>0;
+}
+async function load(){msg("#table-status","Atualizando trilha…");const lim=Number($("#limit").value||100);const j=await api(`/admin-api/audit?limit=${lim}`);state.all=Array.isArray(j?.data?.events)?j.data.events:[];render();msg("#table-status",`${state.all.length} evento(s) carregado(s).`,"success")}
+$("#auth-form").addEventListener("submit",async e=>{e.preventDefault();state.key=$("#admin-key").value.trim();if(!state.key)return;try{await load();sessionStorage.setItem("chefsapiens.admin.session",state.key);connected(true);msg("#auth-status","Acesso administrativo conectado.","success")}catch(err){state.key="";sessionStorage.removeItem("chefsapiens.admin.session");connected(false);msg("#auth-status",err.status===401?"Chave administrativa inválida.":err.message,"error")}});
+["#q","#lead-id","#period","#limit"].forEach(id=>$(id).addEventListener("input",id==="#limit"?()=>load().catch(e=>msg("#table-status",e.message,"error")):render));
+$("#refresh").addEventListener("click",()=>load().catch(e=>msg("#table-status",e.message,"error")));
+$("#disconnect").addEventListener("click",()=>{state.key="";state.all=[];sessionStorage.removeItem("chefsapiens.admin.session");connected(false);msg("#auth-status","Chave removida desta sessão.","success")});
+$("#export").addEventListener("click",()=>{const cols=["timestamp","id","leadId","action","source","changes"];const rows=state.filtered.map(e=>[e.timestamp,e.id,e.leadId,e.action,e.source,JSON.stringify(e.changes||{})]);const csv=[cols,...rows].map(r=>r.map(v=>`"${String(v??"").replace(/"/g,'""')}"`).join(",")).join("\r\n");const b=new Blob(["\ufeff"+csv],{type:"text/csv;charset=utf-8"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=`chefsapiens-audit-${new Date().toISOString().slice(0,10)}.csv`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)});
+if(state.key){load().then(()=>{connected(true);msg("#auth-status","Sessão administrativa restaurada.","success")}).catch(()=>{state.key="";sessionStorage.removeItem("chefsapiens.admin.session");connected(false)})}else connected(false);
