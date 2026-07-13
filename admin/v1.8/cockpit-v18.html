@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'">
+<title>Cockpit comercial — ChefSapiens</title>
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/admin-assets/cockpit-v18.css">
+</head>
+<body>
+<a class="skip" href="#main">Pular para o conteúdo</a>
+<header class="topbar">
+  <a class="brand" href="/"><span class="mark">CS</span><span><strong>ChefSapiens</strong><small>Cockpit comercial</small></span></a>
+  <nav aria-label="Navegação"><a href="/start">Trial</a><a href="/checkout">Checkout</a><a href="/dashboard">Cliente</a></nav>
+</header>
+
+<main id="main">
+<section class="hero">
+  <div>
+    <p class="eyebrow">OPERAÇÃO INTERNA • V1.8</p>
+    <h1>Pipeline comercial com contexto, prioridade e próxima ação.</h1>
+    <p class="lead">Gerencie trials e intenções de plano sem CRM externo. A chave administrativa permanece apenas nesta sessão do navegador.</p>
+  </div>
+  <aside class="security"><strong>Privacidade operacional</strong><p>Sem chave em URL, cookie ou armazenamento permanente. Dados e notas ficam somente na homologação.</p></aside>
+</section>
+
+<section class="panel" id="auth-panel">
+  <div class="panel-head"><div><p class="eyebrow">ACESSO</p><h2>Conectar chave administrativa</h2></div><span class="pill neutral" id="auth-state">Desconectado</span></div>
+  <form id="auth-form">
+    <label for="admin-key">Admin API key</label>
+    <div class="key-row"><input id="admin-key" type="password" autocomplete="off" spellcheck="false" required><button class="button primary" type="submit">Conectar</button></div>
+    <p class="status" id="auth-status" aria-live="polite"></p>
+  </form>
+</section>
+
+<section id="workspace" hidden>
+  <section class="metrics" aria-label="Métricas">
+    <article><span>Total</span><strong id="m-total">0</strong><small>registros</small></article>
+    <article><span>Novos</span><strong id="m-new">0</strong><small>aguardando triagem</small></article>
+    <article><span>Em andamento</span><strong id="m-open">0</strong><small>qualificados a proposta</small></article>
+    <article><span>Atrasados</span><strong id="m-overdue">0</strong><small>próxima ação vencida</small></article>
+    <article><span>Ganhos</span><strong id="m-won">0</strong><small>conversões registradas</small></article>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head">
+      <div><p class="eyebrow">PIPELINE</p><h2>Registros comerciais</h2></div>
+      <div class="actions"><button id="refresh" class="button secondary" type="button">Atualizar</button><button id="export" class="button secondary" type="button">Exportar CSV</button><button id="disconnect" class="button danger" type="button">Desconectar</button></div>
+    </div>
+
+    <div class="filters">
+      <label>Busca<input id="q" type="search" placeholder="Empresa, contato, e-mail, caso de uso ou próxima ação"></label>
+      <label>Origem<select id="source"><option value="">Todas</option><option value="trial">Trial</option><option value="sales">Comercial</option></select></label>
+      <label>Etapa<select id="stage"><option value="">Todas</option><option value="new">Novo</option><option value="qualified">Qualificado</option><option value="contacted">Contatado</option><option value="proposal">Proposta</option><option value="won">Ganho</option><option value="lost">Perdido</option></select></label>
+      <label>Responsável<input id="owner" type="search" placeholder="Todos"></label>
+      <label>Prazo<select id="due"><option value="">Todos</option><option value="overdue">Atrasados</option><option value="today">Hoje</option><option value="next7">Próximos 7 dias</option><option value="none">Sem próxima ação</option></select></label>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Prioridade</th><th>Etapa</th><th>Próxima ação</th><th>Contato</th><th>Empresa</th><th>Origem</th><th>Volume</th><th>Prazo</th><th></th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+    <p class="empty" id="empty" hidden>Nenhum registro corresponde aos filtros.</p>
+    <p class="status" id="table-status" aria-live="polite"></p>
+  </section>
+</section>
+</main>
+
+<aside class="drawer" id="drawer" aria-hidden="true" aria-labelledby="drawer-title">
+  <div class="drawer-backdrop" data-close></div>
+  <section class="drawer-card" role="dialog" aria-modal="true">
+    <div class="drawer-head"><div><p class="eyebrow">OPORTUNIDADE</p><h2 id="drawer-title">Editar pipeline</h2></div><button class="icon-button" type="button" data-close aria-label="Fechar">×</button></div>
+    <div class="lead-summary" id="lead-summary"></div>
+    <form id="pipeline-form">
+      <input type="hidden" id="lead-id">
+      <div class="form-grid">
+        <label>Etapa
+          <select id="edit-stage" required>
+            <option value="new">Novo</option><option value="qualified">Qualificado</option><option value="contacted">Contatado</option><option value="proposal">Proposta</option><option value="won">Ganho</option><option value="lost">Perdido</option>
+          </select>
+        </label>
+        <label>Responsável<input id="edit-owner" maxlength="120" placeholder="Ex.: Equipe comercial"></label>
+        <label class="full">Próxima ação<input id="edit-next-action" maxlength="240" placeholder="Ex.: Revisar caso de uso e preparar proposta"></label>
+        <label>Data da próxima ação<input id="edit-next-action-at" type="datetime-local"></label>
+        <label class="full">Notas internas<textarea id="edit-notes" maxlength="2000" rows="6" placeholder="Contexto, objeções, decisão e próximos passos."></textarea></label>
+      </div>
+      <div class="drawer-actions"><button class="button secondary" type="button" data-close>Cancelar</button><button class="button primary" id="save-pipeline" type="submit">Salvar pipeline</button></div>
+      <p class="status" id="drawer-status" aria-live="polite"></p>
+    </form>
+  </section>
+</aside>
+
+<footer ><span>ChefSapiens — Cockpit interno de homologação.</span><a href="/status.html">Status</a><a href="/privacy.html">Privacidade</a></footer>
+<script src="/admin-assets/cockpit-v18.js" defer></script>
+</body>
+</html>
