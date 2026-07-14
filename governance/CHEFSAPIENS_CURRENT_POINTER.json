@@ -1,6 +1,6 @@
 {
   "schema": "chefsapiens.current-state-pointer.v1",
-  "generated_at": "2026-07-14T01:13:30Z",
+  "generated_at": "2026-07-14T03:40:03Z",
   "environment": "homologation",
   "production_promotion_authorized": false,
   "base_inventory": {
@@ -32,15 +32,19 @@
     "result": "CANONICAL_SCHEMA_VALIDATION_OK"
   },
   "monitor": {
-    "version": "3.2",
-    "path": "governance/monitor/chefsapiens-drift-monitor-v3.2.sh",
-    "commit": "0315cef429d17832fdc25fc67b0651b5ad5d16eb",
-    "sha256": "86bc9e45fced1e1932aa25325b2cb9b74bae51f315cb815c872eb91b4ebde2b2",
+    "version": "4.0",
+    "path": "governance/monitor/chefsapiens-drift-monitor-v4.sh",
+    "commit": "a91561bea2dc4b6ff18c1ec982cacd4bba12887c",
+    "sha256": "ed73363e099fe35c41108bc4bda2dd18d57ff2b3308c772bd8ce480f648624ac",
+    "size_bytes": 6466,
     "interval_seconds": 900,
     "latest_status": "green",
     "latest_drift_count": 0,
-    "latest_checked_at": "2026-07-14T01:12:13Z",
-    "report_schema": "chefsapiens.drift-report.v3"
+    "report_schema": "chefsapiens.drift-report.v4",
+    "docker_socket_mounted": false,
+    "mutation_capability": false,
+    "transport": "private_service_network",
+    "retention": "compress_without_deletion"
   },
   "versions": {
     "core": "1.2.0-rc.1",
@@ -63,8 +67,12 @@
     "archive_path": "/data/audit-archive",
     "manifest_path": "/data/audit-archive/manifest.jsonl",
     "deletion_enabled": false,
-    "forced_rotation_test_performed": false,
-    "reason": "current audit file remained below threshold"
+    "forced_rotation_test_performed": true,
+    "reason": "current audit file remained below threshold",
+    "archive_count_validated": 3,
+    "manifest_sha256_verified": true,
+    "restart_persistence_verified": true,
+    "resolution_commit": "6dabfdc7d24adc82f83453b37f3185339965a5ac"
   },
   "active_routes": [
     "/",
@@ -83,7 +91,9 @@
     "production_promotion"
   ],
   "accuracy_notes": [
-    "audit rotation mechanism is active but no archive segment has yet been created",
+    "forced audit rotation validated in isolated synthetic lab with three archived segments",
+    "monitor v4 uses private service network and has no Docker socket or mutation capability",
+    "homologation public root from inside VPS remains observational due loopback transport instability",
     "no full visual browser E2E is recorded",
     "production was checked but not changed"
   ]
