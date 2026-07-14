@@ -1,44 +1,53 @@
 {
   "schema": "chefsapiens.incident.v1",
   "id": "CS-INC-2026-07-14-ROTATION-LAB",
-  "generated_at": "2026-07-14T02:25:00Z",
-  "status": "open",
+  "opened_at": "2026-07-14T02:25:00Z",
+  "resolved_at": "2026-07-14T03:09:20Z",
+  "status": "resolved",
   "scope": "homologation_isolated_rotation_lab",
   "impact": {
     "production": "none",
     "homologation_real_data": "none",
-    "active_admin_runtime": "unchanged",
-    "monitor_last_known_state": "green_drift_zero"
+    "active_admin_runtime": "unchanged"
   },
-  "causes": [
-    "test threshold 512 bytes was below the backend minimum of 65536 and therefore did not trigger rotation",
-    "first isolated runner started before readiness and exited",
-    "second isolated runner produced a truncated package warning and exited before manifest validation",
-    "Hostinger API subsequently returned Cloudflare challenge and VPS:9999 failures"
-  ],
+  "resolution": {
+    "forced_rotation_validated": true,
+    "threshold_bytes": 65536,
+    "synthetic_events": 100,
+    "archive_count": 3,
+    "manifest_entries": 3,
+    "current_bytes_after_rotation": 15288,
+    "deletion_enabled": false,
+    "manifest_sha256_verified": true,
+    "restart_persistence_verified": true,
+    "isolated_resources_cleaned": true,
+    "evidence_backed_up": true
+  },
   "evidence": {
-    "isolated_lab_container_last_observed": "chefsapiens-admin-v21-rotation-lab",
-    "isolated_volume_last_observed": "chefsapiens-admin-v21-rotation-lab-data",
-    "isolated_audit_bytes_last_observed": 4860,
-    "archive_manifest_created": false,
-    "forced_rotation_validated": false,
-    "hostinger_cloudflare_block": true,
-    "hostinger_vps_9999_observed": true
+    "lab_script_path": "governance/labs/chefsapiens-admin-v21-rotation-lab.sh",
+    "lab_script_commit": "cf025a6677b95e2ff53f8c5ce7e87b9352fbebfe",
+    "final_execution_operation_id": 104066053,
+    "final_check_operation_id": 104066072,
+    "manifest_backup": "/backups/CHEFSAPIENS_ROTATION_LAB_MANIFEST.jsonl",
+    "note_backup": "/backups/CHEFSAPIENS_ROTATION_LAB_NOTE.txt",
+    "markers": [
+      "ROTATION_MANIFEST_SHA256_OK entries=3",
+      "ROTATION_RESTART_PERSISTENCE_OK",
+      "PRODUCTION_200",
+      "ROTATION_LAB_CLEANUP_OK",
+      "CHEFSAPIENS_ROTATION_LAB_OK",
+      "ROTATION_FINAL_INTERNAL_CHECK_OK"
+    ]
   },
-  "required_next_actions": [
-    "recover Hostinger API access",
-    "remove isolated lab container and volume",
-    "recreate isolated lab with 65536-byte threshold",
-    "generate sufficient synthetic events in a single session",
-    "validate archive manifest and SHA-256",
-    "restart lab and validate persistence",
-    "clean all isolated lab resources",
-    "update this incident to resolved"
-  ],
+  "cleanup": {
+    "container_absent": "chefsapiens-rotation-lab",
+    "data_volume_absent": "chefsapiens-rotation-lab-data",
+    "code_volume_absent": "chefsapiens-rotation-lab-code"
+  },
   "security": {
     "secrets_recorded": false,
     "personal_data_recorded": false,
     "external_transmission": false
   },
-  "accuracy_note": "The audit rotation mechanism remains implemented but has not yet passed a forced threshold test."
+  "accuracy_note": "The forced threshold test was completed in an isolated synthetic lab. No production or real homologation pipeline data was modified."
 }
