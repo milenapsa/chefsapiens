@@ -1,0 +1,78 @@
+{
+  "schema": "chefsapiens.homologation-feature.v1",
+  "feature": "admin_audit_rotation_and_cockpit_alignment",
+  "version": "2.1",
+  "status": "green",
+  "generated_at": "2026-07-14T01:12:20Z",
+  "environment": "homologation",
+  "production_changed": false,
+  "runtime": {
+    "active_container": "chefsapiens-admin-v21-hml",
+    "rollback_container": "chefsapiens-admin-v20-hml",
+    "persistent_volume": "chefsapiens-admin-hml_chefsapiens_admin_data",
+    "backup_caddy": "/backups/Caddyfile.before-chefsapiens-admin-v21-20260714T010543"
+  },
+  "features": [
+    "cockpit_version_aligned",
+    "cross_links_to_agenda_and_audit",
+    "audit_rotation_by_size",
+    "audit_archive_manifest",
+    "audit_archive_sha256",
+    "archive_only_no_deletion",
+    "audit_status_endpoint",
+    "origin_guard",
+    "lead_existence_validation",
+    "serialized_writes"
+  ],
+  "audit_rotation": {
+    "mode": "archive_only_no_deletion",
+    "rotate_bytes": 65536,
+    "current_bytes_at_test": 333,
+    "archive_count_at_test": 0,
+    "manifest_entries_at_test": 0,
+    "deletion_enabled": false
+  },
+  "artifacts": {
+    "server_path": "admin/v2.1/server.mjs",
+    "server_commit": "f1615c7bfac00e454cfe21d1d4ed77d8261edf1d",
+    "server_sha256": "10bd37bc2d264fb69b13dd8441e218493451b94985da5ef993c29713be316669",
+    "monitor_path": "governance/monitor/chefsapiens-drift-monitor-v3.2.sh",
+    "monitor_commit": "0315cef429d17832fdc25fc67b0651b5ad5d16eb",
+    "monitor_sha256": "86bc9e45fced1e1932aa25325b2cb9b74bae51f315cb815c872eb91b4ebde2b2"
+  },
+  "evidence": {
+    "migration_operation_id": 104060554,
+    "public_check_operation_id": 104060565,
+    "rotation_status_operation_id": 104060570,
+    "monitor_deploy_operation_id": 104061765,
+    "monitor_result": "DRIFT_V3_COMPLETED status=green count=0",
+    "cockpit_http": 200,
+    "audit_http": 200,
+    "rotation_guard_http": 401,
+    "production_http": 200,
+    "active_container_health": "healthy",
+    "active_container_restarts": 0
+  },
+  "incidents": [
+    {
+      "issue": "Git blob SHA was initially used as a file checksum",
+      "resolution": "measured the raw GitHub file SHA-256 and retried",
+      "status": "resolved"
+    },
+    {
+      "issue": "monitor v3.1 produced five false positives from shell parsing",
+      "resolution": "replaced shell counting with deterministic jq evaluation in v3.2",
+      "status": "resolved"
+    },
+    {
+      "issue": "monitor vc v3 had a shell parsing error",
+      "resolution": "syntax-tested v3.1 and then replaced it with v3.2",
+      "status": "resolved"
+    }
+  ],
+  "limitations": [
+    "audit rotation is active but has not been forced because the current file is below the threshold",
+    "no full visual browser E2E was recorded",
+    "production promotion is not authorized"
+  ]
+}
