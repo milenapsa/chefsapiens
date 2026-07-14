@@ -16,7 +16,7 @@ test -n "$ID"
 docker volume create "$V">/dev/null
 umask 077
 printf 'ADMIN_API_KEY=%s\nDATA_DIR=/data\nALLOWED_ORIGIN=https://rotation-lab.local\nCORE_URL=http://chefsapiens-rc3-hml-app:8080\nAUDIT_ROTATE_BYTES=65536\n' "$K">/tmp/lab.env
-docker cp "$A:/tmp/admin/server.mjs" /tmp/server.mjs
+docker exec "$A" cat /tmp/admin/server.mjs > /tmp/server.mjs
 echo "10bd37bc2d264fb69b13dd8441e218493451b94985da5ef993c29713be316669  /tmp/server.mjs"|sha256sum -c -
 docker run -d --name "$L" --network "$N" --env-file /tmp/lab.env -v "$V:/data" -v /tmp/server.mjs:/app/server.mjs:ro --read-only --tmpfs /tmp --security-opt no-new-privileges:true --cap-drop ALL node:22-alpine node /app/server.mjs>/dev/null
 rm -f /tmp/lab.env
