@@ -3,9 +3,11 @@ set -eu
 A=chefsapiens-admin-v21-hml
 L=chefsapiens-rotation-lab
 V=chefsapiens-rotation-lab-data
+C=chefsapiens-rotation-lab-code
+H=chefsapiens-rotation-lab-code-helper
 N=gateway-health_default
 B=https://culinaria-rc3-hml.homosapiens.id
-cleanup(){ docker rm -f "$L" >/dev/null 2>&1||true; docker volume rm "$V" >/dev/null 2>&1||true; rm -f /tmp/lab.env /tmp/p.json /tmp/server.mjs; }
+cleanup(){ docker rm -f "$L" "$H" >/dev/null 2>&1||true; docker volume rm "$V" "$C" >/dev/null 2>&1||true; rm -f /tmp/lab.env /tmp/p.json; }
 trap cleanup EXIT INT TERM HUP
 cleanup
 K="$(docker inspect "$A" --format '{{range .Config.Env}}{{println .}}{{end}}'|sed -n 's/^ADMIN_API_KEY=//p'|head -n1)"
@@ -16,9 +18,12 @@ test -n "$ID"
 docker volume create "$V">/dev/null
 umask 077
 printf 'ADMIN_API_KEY=%s\nDATA_DIR=/data\nALLOWED_ORIGIN=https://rotation-lab.local\nCORE_URL=http://chefsapiens-rc3-hml-app:8080\nAUDIT_ROTATE_BYTES=65536\n' "$K">/tmp/lab.env
-docker exec "$A" cat /tmp/admin/server.mjs > /tmp/server.mjs
-echo "10bd37bc2d264fb69b13dd8441e218493451b94985da5ef993c29713be316669  /tmp/server.mjs"|sha256sum -c -
-docker run -d --name "$L" --network "$N" --env-file /tmp/lab.env -v "$V:/data" -v /tmp/server.mjs:/app/server.mjs:ro --read-only --tmpfs /tmp --security-opt no-new-privileges:true --cap-drop ALL node:22-alpine node /app/server.mjs>/dev/null
+docker volume create "$C">/dev/null
+docker run -d --name "$H" -v "$C:/app" alpine:3.20 sleep 300>/dev/null
+docker exec "$A" cat /tmp/admin/server.mjs | docker exec -i "$H" sh -c 'cat > /app/server.mjs'
+docker exec "$H" sh -c 'echo "10bd37bc2d264fb69b13dd8441e218493451b94985da5ef993c29713be316669  /app/server.mjs"|sha256sum -c -'
+docker rm -f "$H">/dev/null
+docker run -d --name "$L" --network "$N" --env-file /tmp/lab.env -v "$V:/data" -v "$C:/app:ro" --read-only --tmpfs /tmp --security-opt no-new-privileges:true --cap-drop ALL node:22-alpine node /app/server.mjs>/dev/null
 rm -f /tmp/lab.env
 for i in $(seq 1 60);do docker exec "$L" node -e "fetch('http://127.0.0.1:8082/healthz').then(r=>r.json()).then(j=>process.exit(j.ok?0:1)).catch(()=>process.exit(1))" >/dev/null 2>&1&&break;sleep 1;done
 docker exec -e LEAD_ID="$ID" -e EVENTS=420 "$L" node --input-type=module -e "const id=process.env.LEAD_ID,n=+process.env.EVENTS,k=process.env.ADMIN_API_KEY,b='http://127.0.0.1:8082';for(let i=1;i<=n;i++){const x={stage:i%2?'proposal':'contacted',owner:'Rotation Lab',nextAction:'Synthetic '+i,nextActionAt:new Date(Date.now()+i*60000).toISOString(),notes:'LAB_'+i};const r=await fetch(b+'/admin-api/pipeline/'+encodeURIComponent(id),{method:'PATCH',headers:{Origin:'https://rotation-lab.local','x-admin-key':k,'content-type':'application/json'},body:JSON.stringify(x)});if(!r.ok)throw Error('patch '+i+' '+r.status)}const r=await fetch(b+'/admin-api/audit/status',{headers:{'x-admin-key':k}}),j=await r.json();if(!r.ok||j.data.archiveCount<1||j.data.manifestEntries<1||j.data.deletionEnabled!==false)throw Error(JSON.stringify(j));console.log(JSON.stringify(j.data))"
