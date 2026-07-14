@@ -1,0 +1,44 @@
+{
+  "schema": "chefsapiens.incident.v1",
+  "id": "CS-INC-2026-07-14-ROTATION-LAB",
+  "generated_at": "2026-07-14T02:25:00Z",
+  "status": "open",
+  "scope": "homologation_isolated_rotation_lab",
+  "impact": {
+    "production": "none",
+    "homologation_real_data": "none",
+    "active_admin_runtime": "unchanged",
+    "monitor_last_known_state": "green_drift_zero"
+  },
+  "causes": [
+    "test threshold 512 bytes was below the backend minimum of 65536 and therefore did not trigger rotation",
+    "first isolated runner started before readiness and exited",
+    "second isolated runner produced a truncated package warning and exited before manifest validation",
+    "Hostinger API subsequently returned Cloudflare challenge and VPS:9999 failures"
+  ],
+  "evidence": {
+    "isolated_lab_container_last_observed": "chefsapiens-admin-v21-rotation-lab",
+    "isolated_volume_last_observed": "chefsapiens-admin-v21-rotation-lab-data",
+    "isolated_audit_bytes_last_observed": 4860,
+    "archive_manifest_created": false,
+    "forced_rotation_validated": false,
+    "hostinger_cloudflare_block": true,
+    "hostinger_vps_9999_observed": true
+  },
+  "required_next_actions": [
+    "recover Hostinger API access",
+    "remove isolated lab container and volume",
+    "recreate isolated lab with 65536-byte threshold",
+    "generate sufficient synthetic events in a single session",
+    "validate archive manifest and SHA-256",
+    "restart lab and validate persistence",
+    "clean all isolated lab resources",
+    "update this incident to resolved"
+  ],
+  "security": {
+    "secrets_recorded": false,
+    "personal_data_recorded": false,
+    "external_transmission": false
+  },
+  "accuracy_note": "The audit rotation mechanism remains implemented but has not yet passed a forced threshold test."
+}
