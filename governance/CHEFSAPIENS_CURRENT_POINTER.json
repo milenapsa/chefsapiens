@@ -1,6 +1,6 @@
 {
   "schema": "chefsapiens.current-state-pointer.v1",
-  "generated_at": "2026-07-13T23:40:32Z",
+  "generated_at": "2026-07-14T01:13:30Z",
   "environment": "homologation",
   "production_promotion_authorized": false,
   "base_inventory": {
@@ -19,6 +19,11 @@
       "path": "governance/CHEFSAPIENS_ADMIN_V20.json",
       "commit": "6dd0fc758ffea40f972822bc0d088c7223fd9831",
       "sha256": "694ca277beeadc405efd96ba7aa5db168df91f112e20781189363fa42847fc26"
+    },
+    {
+      "name": "admin_audit_rotation_v2.1",
+      "path": "governance/CHEFSAPIENS_ADMIN_V21.json",
+      "commit": "e49b900c920c94cc0dd31ccbd50cfb380217ff74"
     }
   ],
   "schema_validation": {
@@ -27,23 +32,39 @@
     "result": "CANONICAL_SCHEMA_VALIDATION_OK"
   },
   "monitor": {
-    "version": "2",
-    "path": "governance/monitor/chefsapiens-drift-monitor-v2.sh",
-    "commit": "a9c736f0dbbf9a11236abf619448593d2d322b25",
-    "sha256": "e58956b3652bda74cba11db8fab536b9fcd52d3268825bea1122fdd6e0aa1e0a",
+    "version": "3.2",
+    "path": "governance/monitor/chefsapiens-drift-monitor-v3.2.sh",
+    "commit": "0315cef429d17832fdc25fc67b0651b5ad5d16eb",
+    "sha256": "86bc9e45fced1e1932aa25325b2cb9b74bae51f315cb815c872eb91b4ebde2b2",
     "interval_seconds": 900,
     "latest_status": "green",
     "latest_drift_count": 0,
-    "latest_checked_at": "2026-07-13T23:38:58Z",
-    "persistence_check_operation_id": 104056392
+    "latest_checked_at": "2026-07-14T01:12:13Z",
+    "report_schema": "chefsapiens.drift-report.v3"
   },
   "versions": {
     "core": "1.2.0-rc.1",
     "portal": "1.5",
-    "cockpit_ui": "1.8",
-    "admin_backend": "2.0",
+    "cockpit_ui": "2.1",
+    "admin_backend": "2.1",
     "audit_ui": "2.0",
     "agenda": "1.9"
+  },
+  "runtime": {
+    "active_admin_container": "chefsapiens-admin-v21-hml",
+    "admin_rollback_container": "chefsapiens-admin-v20-hml",
+    "legacy_admin_container": "chefsapiens-admin-hml",
+    "admin_persistent_volume": "chefsapiens-admin-hml_chefsapiens_admin_data",
+    "caddy_backup": "/backups/Caddyfile.before-chefsapiens-admin-v21-20260714T010543"
+  },
+  "audit_rotation": {
+    "mode": "archive_only_no_deletion",
+    "rotate_bytes": 65536,
+    "archive_path": "/data/audit-archive",
+    "manifest_path": "/data/audit-archive/manifest.jsonl",
+    "deletion_enabled": false,
+    "forced_rotation_test_performed": false,
+    "reason": "current audit file remained below threshold"
   },
   "active_routes": [
     "/",
@@ -60,5 +81,10 @@
     "automatic_email",
     "automatic_whatsapp",
     "production_promotion"
+  ],
+  "accuracy_notes": [
+    "audit rotation mechanism is active but no archive segment has yet been created",
+    "no full visual browser E2E is recorded",
+    "production was checked but not changed"
   ]
 }
