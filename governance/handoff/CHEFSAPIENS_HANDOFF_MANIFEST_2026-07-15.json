@@ -1,16 +1,26 @@
 {
-  "schema": "chefsapiens.handoff-manifest.v1",
-  "generated_at_utc": "2026-07-15T11:50:00Z",
-  "files": [
+  "schema": "chefsapiens.handoff-manifest.v2",
+  "generated_at_utc": "2026-07-15T12:20:00Z",
+  "canonical_reference": {
+    "repository": "milenapsa/chefsapiens",
+    "path": "governance/handoff/CHEFSAPIENS_HANDOFF_CANONICO_2026-07-15.json",
+    "commit": "12726f082cbced4e226df880776442f9c646e5df",
+    "sha256": "dcd0555ab29fdf493e2be33c9949b9df04ec5ca465c24d7145ed1030d4ca4344",
+    "bytes": 8968
+  },
+  "package_files": [
     {
       "name": "CHEFSAPIENS_HANDOFF_CANONICO_2026-07-15.json",
       "sha256": "a03b13208c94d534606caf6f3ce6cefc6f9b3d1db01b28b56183f14bd16b35d1",
-      "bytes": 8965
+      "bytes": 8965,
+      "role": "cópia local de transição"
     },
     {
       "name": "CHEFSAPIENS_AVISO_NOVA_JANELA_2026-07-15.md",
-      "sha256": "f41803e99d07cd107aaf5bd875388471fb9aa4eeddd007f9b492efdd4f69eefc",
-      "bytes": 1492
+      "sha256": "5e2f7c9fdebf02aba0ee4be8aae791adca8f8810f15b9b28393a3ad511133319",
+      "bytes": 1752,
+      "role": "aviso para nova janela"
     }
-  ]
+  ],
+  "note": "Em caso de divergência, prevalece o arquivo versionado no GitHub indicado em canonical_reference."
 }
