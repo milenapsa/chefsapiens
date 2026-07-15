@@ -1,0 +1,245 @@
+{
+  "schema": "chefsapiens.handoff-canonical.v1",
+  "title": "ChefSapiens — Inventário Canônico de Transição",
+  "generated_at_utc": "2026-07-15T11:50:00Z",
+  "timezone": "America/Sao_Paulo",
+  "scope": {
+    "environment": "homologation",
+    "production_promotion_authorized": false,
+    "production_changes_authorized": false,
+    "autonomy": "A3 para gravação documental; A4 separado para produção",
+    "rule": "Preparar não é executar. Sem evidência técnica, não afirmar execução real."
+  },
+  "project": {
+    "name": "ChefSapiens",
+    "repository": "milenapsa/chefsapiens",
+    "homologation_url": "https://culinaria-rc3-hml.homosapiens.id",
+    "production_url": "https://chefsapiens.homosapiens.id",
+    "vps": {
+      "provider": "Hostinger",
+      "id": 1799286,
+      "ip": "76.13.226.21",
+      "os": "Ubuntu 24.04"
+    },
+    "gateway": {
+      "container": "media-studio-caddy",
+      "network": "gateway-health_default"
+    }
+  },
+  "current_position": {
+    "phase": "homologation_stabilized_and_governed",
+    "status": "green",
+    "summary": "Homologação funcional, monitorada e com governança persistida. Produção não promovida.",
+    "known_open_incidents": [],
+    "remaining_items": [
+      "E2E visual completo em navegador ainda não registrado",
+      "revisão humana de UX, conteúdo, termos, privacidade e preços antes de produção",
+      "billing real, CRM externo, e-mail e WhatsApp automáticos permanecem desabilitados"
+    ]
+  },
+  "versions": {
+    "core_api": "1.2.0-rc.1",
+    "portal": "1.5",
+    "cockpit_ui": "2.1",
+    "admin_backend": "2.1",
+    "audit_ui": "2.0",
+    "agenda": "1.9",
+    "drift_monitor": "4.0"
+  },
+  "runtime": {
+    "containers": {
+      "core": "chefsapiens-rc3-hml-app",
+      "portal": "chefsapiens-portal-hml",
+      "admin_active": "chefsapiens-admin-v21-hml",
+      "admin_rollback": "chefsapiens-admin-v20-hml",
+      "admin_legacy": "chefsapiens-admin-hml",
+      "agenda": "chefsapiens-agenda-hml",
+      "monitor": "chefsapiens-inventory-monitor",
+      "production": "chefsapiens-prod-app"
+    },
+    "volumes": {
+      "core": "chefsapiens-rc3-hml_chefsapiens_rc3_data",
+      "admin": "chefsapiens-admin-hml_chefsapiens_admin_data",
+      "monitor": "chefsapiens-inventory-monitor_chefsapiens_drift_data",
+      "canonical": "chefsapiens-canonical-inventory_chefsapiens_inventory_data"
+    },
+    "backups": [
+      "/backups/Caddyfile.before-chefsapiens-admin-v21-20260714T010543",
+      "/backups/CHEFSAPIENS_CURRENT_POINTER.json",
+      "/backups/chefsapiens-drift-monitor-v4.sh",
+      "/backups/CHEFSAPIENS_ROTATION_LAB_MANIFEST.jsonl",
+      "/backups/CHEFSAPIENS_ROTATION_LAB_NOTE.txt",
+      "/backups/CHEFSAPIENS_ROTATION_LAB_RESOLVED_2026-07-14.json"
+    ]
+  },
+  "routes": {
+    "public": [
+      "/",
+      "/start",
+      "/checkout",
+      "/dashboard",
+      "/cockpit",
+      "/audit",
+      "/agenda",
+      "/readyz"
+    ],
+    "admin_guards_expected_401": [
+      "/admin-api/pipeline",
+      "/admin-api/audit",
+      "/admin-api/audit/status"
+    ],
+    "private_monitor_targets": {
+      "core": "http://chefsapiens-rc3-hml-app:8080/readyz",
+      "portal_start": "http://chefsapiens-portal-hml:8081/start",
+      "portal_checkout": "http://chefsapiens-portal-hml:8081/checkout",
+      "portal_dashboard": "http://chefsapiens-portal-hml:8081/dashboard",
+      "admin_health": "http://chefsapiens-admin-v21-hml:8082/healthz",
+      "admin_cockpit": "http://chefsapiens-admin-v21-hml:8082/cockpit",
+      "admin_audit": "http://chefsapiens-admin-v21-hml:8082/audit",
+      "agenda": "http://chefsapiens-agenda-hml:8083/agenda"
+    }
+  },
+  "monitor": {
+    "version": "4.0",
+    "schema": "chefsapiens.drift-report.v4",
+    "interval_seconds": 900,
+    "status": "green",
+    "drift_count": 0,
+    "latest_verified_cycle_utc": "2026-07-15T11:46:16Z",
+    "continuous_green_since_utc": "2026-07-14T03:30:07Z",
+    "transport": "private_service_network",
+    "docker_socket_mounted": false,
+    "mutation_capability": false,
+    "retention": {
+      "mode": "compress_without_deletion",
+      "compress_after_seconds": 172800
+    },
+    "source": {
+      "path": "governance/monitor/chefsapiens-drift-monitor-v4.sh",
+      "commit": "a91561bea2dc4b6ff18c1ec982cacd4bba12887c",
+      "sha256": "ed73363e099fe35c41108bc4bda2dd18d57ff2b3308c772bd8ce480f648624ac",
+      "bytes": 6466
+    }
+  },
+  "admin_v21": {
+    "active_container": "chefsapiens-admin-v21-hml",
+    "rollback_container": "chefsapiens-admin-v20-hml",
+    "persistent_volume": "chefsapiens-admin-hml_chefsapiens_admin_data",
+    "source": {
+      "path": "admin/v2.1/server.mjs",
+      "commit": "f1615c7bfac00e454cfe21d1d4ed77d8261edf1d",
+      "sha256": "10bd37bc2d264fb69b13dd8441e218493451b94985da5ef993c29713be316669"
+    },
+    "features": [
+      "cockpit interno v2.1",
+      "auditoria append-only",
+      "rotação por tamanho",
+      "manifesto SHA-256",
+      "sem exclusão automática",
+      "origin guard",
+      "validação de lead",
+      "escritas serializadas",
+      "redação de conteúdo sensível"
+    ]
+  },
+  "audit_rotation": {
+    "mode": "archive_only_no_deletion",
+    "threshold_bytes": 65536,
+    "deletion_enabled": false,
+    "lab": {
+      "validated": true,
+      "synthetic_events": 100,
+      "archives": 3,
+      "manifest_entries": 3,
+      "current_bytes_after_rotation": 15288,
+      "sha256_verified": true,
+      "restart_persistence_verified": true,
+      "cleanup_verified": true,
+      "production_impact": "none",
+      "real_homologation_data_impact": "none",
+      "operation": 104066053,
+      "script_commit": "cf025a6677b95e2ff53f8c5ce7e87b9352fbebfe",
+      "script_sha256": "d191ee073a00590d1fb810199d4f60f2bd4aa6c2e550e67acfff9211f5e61593"
+    },
+    "incident": {
+      "path": "governance/incidents/CHEFSAPIENS_ROTATION_LAB_PENDING_2026-07-14.json",
+      "status": "resolved",
+      "commit": "6dabfdc7d24adc82f83453b37f3185339965a5ac",
+      "sha256": "d8e1f6a149e75cdfcd6dfac2fd265d23053f51be02cb38a5d351d94a44ab65ab"
+    }
+  },
+  "governance": {
+    "base_inventory": {
+      "path": "governance/CHEFSAPIENS_INVENTARIO_CANONICO_2026-07-13.json",
+      "commit": "7d875bddcbb9f54230754457869412ee972ec28c",
+      "sha256": "1b7e9337f6e97d33824c468d638d2da145b913ea17ea9fb2de244df0ceb4d8cf"
+    },
+    "schema": {
+      "path": "governance/CHEFSAPIENS_INVENTARIO_SCHEMA_V1.json",
+      "commit": "2915e1b0ca4070707fe7c0cf19718bd7851dd157",
+      "sha2556": "f6c09b30a28ae51b0c6c18225d2100ae0dd9ed56a3cad64d065d7c6bf8abfb29",
+      "validation": "passed"
+    },
+    "admin_v21_delta": {
+      "path": "governance/CHEFSAPIENS_ADMIN_V21.json",
+      "commit": "e49b900c920c94cc0dd31ccbd50cfb380217ff74",
+      "sha256": "d4aba5ace5a7ee3539a9b9213d00a445fa9b49513f7f7f459045d212cc20266e"
+    },
+    "current_pointer": {
+      "path": "governance/CHEFSAPIENS_CURRENT_POINTER.json",
+      "commit": "6983a853c083fa3808932a52b3110405b52cd242",
+      "blob_sha": "488c072a2c94b2a94ae4dd77bc9cfd11ff9978cd",
+      "sha256": "50e57b8a168939199c7011c8ff8de1a8b72e95725107b9e801778336a3b44166"
+    }
+  },
+  "evidence_operations": {
+    "admin_v21_final_validation": 104061971,
+    "rotation_lab": 104066053,
+    "rotation_final_check": 104066072,
+    "monitor_v4_final_check": 104068091,
+    "residue_audit": 104202882
+  },
+  "security": {
+    "secrets_in_inventory": false,
+    "confidentiality": [
+      "leads",
+      "audit data",
+      "internal operational records"
+    ],
+    "do_not_claim_without_evidence": [
+      "produção promovida",
+      "pagamento",
+      "fatura",
+      "CRM integrado",
+      "mensagem enviada",
+      "aprovação jurídica final",
+      "E2E visual completo"
+    ]
+  },
+  "handoff": {
+    "first_message": "Leia CHEFSAPIENS_HANDOFF_CANONICO_2026-07-15.json como estado canônico. Preserve producção inalterada e continue somente em homologação, exigindo evidência técnica.",
+    "first_checks": [
+      "ler logs de chefsapiens-inventory-monitor",
+      "confirmar DRIFT_V4_COMPLETED status=green count=0",
+      "ler governance/CHEFSAPIENS_CURRENT_POINTER.json",
+      "não repetir migrações ou laboratórios já validados",
+      "não promover produção sem autorização A4 específica"
+    ],
+    "recommended_next_work": [
+      "mapa visual e preview das telas",
+      "E2E visual assistido em navegador",
+      "checklist de prontidão para producção sem executar promoção",
+      "revisão humana de conteúdo, termos, privacidade e preços"
+    ]
+  },
+  "knowledge_sources": [
+    "00_PORTA_UNICA_MILENA_CANONICO_FULL_RECUPERACAO_v10_6.md",
+    "modelo_peterle_peticao_LIMPO_v1_2.docx"
+  ],
+  "accuracy_notes": [
+    "Estado verificado até a data de geração.",
+    "Sem evidência de E2E visual completo.",
+    "Produção consultada e não alterada.",
+    "A raiz pública da homologação dentro da VPS é observacional por instabilidade de loopback/TLS."
+  ]
+}
