@@ -156,7 +156,7 @@ const files = {
   "/audit": ["audit.html", "text/html; charset=utf-8"],
   "/audit.html": ["audit.html", "text/html; charset=utf-8"],
   "/audit-assets/audit.css": ["audit.css", "text/css; charset=utf-8"],
-  "/adit-assets/audit.js": ["audit.js", "text/javascript; charset=utf-8"]
+  "/audit-assets/audit.js": ["audit.js", "text/javascript; charset=utf-8"]
 };
 
 http.createServer(async (req, res) => {
