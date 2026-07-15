@@ -1,0 +1,16 @@
+{
+  "schema": "chefsapiens.handoff-manifest.v1",
+  "generated_at_utc": "2026-07-15T11:50:00Z",
+  "files": [
+    {
+      "name": "CHEFSAPIENS_HANDOFF_CANONICO_2026-07-15.json",
+      "sha256": "a03b13208c94d534606caf6f3ce6cefc6f9b3d1db01b28b56183f14bd16b35d1",
+      "bytes": 8965
+    },
+    {
+      "name": "CHEFSAPIENS_AVISO_NOVA_JANELA_2026-07-15.md",
+      "sha256": "f41803e99d07cd107aaf5bd875388471fb9aa4eeddd007f9b492efdd4f69eefc",
+      "bytes": 1492
+    }
+  ]
+}
